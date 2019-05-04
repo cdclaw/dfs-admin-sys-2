@@ -1,0 +1,103 @@
+.sys-name {
+  text-align: center;
+  color: #4156A6;
+  margin: 0;
+}
+
+.login-logo1 {
+  width: 40%;
+  max-width: 195px;
+  height: auto;
+  margin-top: 20px;
+}
+
+div.login-row {
+  margin: 0;
+}
+
+div.login-col {
+  font-family: 'Rubik', sans-serif;
+  padding: 0;
+  text-align: center;
+}
+
+div.login-col.login-box {
+  background: #4156A6;
+  border-radius: 10px;
+}
+
+.signin-text {
+  color: white;
+  font-weight: 400;
+  font-size: 26px;
+  margin-top: 40px;
+}
+
+.login-input-field {
+  background-color: #A0AAD2;
+  border: none;
+  display: block;
+  margin: 20px auto;
+  height: 60px;
+  padding: 5px 15px;
+  border-radius: 5px;
+  width: 80%;
+  font-size: 21px;
+}
+
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: #D9DDED;
+  font-size: 21px;
+}
+
+.login-submit {
+  background-color: white;
+  color: #4156A6;
+  padding: 10px 30px;
+  font-size: 25px;
+  font-weight: 450;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 40px;
+}
+
+.login-submit:hover {
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.28), 0 4px 15px 0 rgba(0, 0, 0, 0.25);
+}
+
+.login-logo2 {
+  margin-top: 40px;
+  width: 50%;
+  max-width: 240px;
+  height: auto;
+}
+
+.reset-btn {
+  border: none;
+  background-color: #A0AAD2;
+  border-radius: 5px;
+  color: #ffffff;
+  /* float: right; */
+  margin-left: 10px;
+}
+
+.reset-password {
+  color: #4156A6;
+  text-align: left;
+  margin: 0;
+}
+
+.error {
+  color: #ffffff;
+  margin: -10px 0 10px 0;
+}
+
+.reset-password.successful {
+  color: #2cd37a;
+  text-align: center;
+}
+
+.reset-box {
+  text-align: center;
+}

@@ -1,0 +1,31 @@
+.submitform-btn.team {
+  margin: 10px 30px 30px 20px;
+  float: right;
+}
+.header.tp{
+  margin-left: 20px;
+}
+
+.tp-form {
+  margin: 20px 30px 10px 20px;
+}
+
+.page-item.active .page-link {
+  background-color: #dee2e6 !important;
+  border-color: #dee2e6 !important;
+}
+.table td{
+  color: #575656;
+}
+.tp-table-col {
+  padding: 0 10px 20px 40px !important;
+}
+
+.position-fixed.tp-form-div {
+  /* background-color: #f2f6f8; */
+  border-color: #dee2e6;
+  border-radius: 5px !important;
+  border-width: 1px !important;
+  margin-right: 60px;
+  border-style: solid;
+}

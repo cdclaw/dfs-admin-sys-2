@@ -1,0 +1,18 @@
+.auto-assign-btn{
+  float: right;
+  color: #4156A6 !important;
+  text-transform: uppercase;
+  background: #ffffff;
+  padding: 5px 10px;
+  border: 3px solid #4156A6 !important;
+  border-radius: 6px;
+  display: inline-block;
+  /* margin-left: 20px; */
+  margin: 20px 30px 0 20px;
+}
+.auto-assign-btn:hover{
+  color: #4156A6 !important;
+  border-radius: 50px;
+  border-color: #4156A6 !important;
+  transition: all 0.3s ease 0s;
+}
