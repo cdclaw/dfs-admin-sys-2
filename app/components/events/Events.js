@@ -20,7 +20,6 @@ class Events extends React.Component {
       judgeData: []
     }
     this.db = fire.firestore();
-    console.log("hi: ", this.props.teamData2);
   }
   // Use the event name passed in to get the team data under that event
   getTeamData(name) {
@@ -232,7 +231,7 @@ class Events extends React.Component {
           </div>
         }
         {this.state.chosenEvent &&
-          <PanelFrame eventName={this.state.chosenEvent}teamData={this.state.teamData} judgeData={this.state.judgeData}></PanelFrame>
+          <PanelFrame eventName={this.state.chosenEvent}teamData={this.state.teamData} judgeData={this.state.judgeData} teamData2={this.props.teamData2}></PanelFrame>
         }
       </Container>
 

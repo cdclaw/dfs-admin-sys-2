@@ -8,6 +8,9 @@ require('./menu-frame.css');
 import TeamPage from '../teams-page/teams-page';
 import JudgePage from '../judges-page/judges-page';
 import AssignPage from '../assign-page/assign-page';
+import TotalPage from '../total-page/total-page';
+import WinnerPage from '../winner-page/winner-page';
+import ExportPage from '../export-page/export-page';
 
 
 class PanelFrame extends React.Component{
@@ -31,6 +34,7 @@ class PanelFrame extends React.Component{
                 <Nav.Link eventKey="Teams">Teams</Nav.Link>
                 <Nav.Link eventKey="AssignTeams">Assign Teams</Nav.Link>
                 <Nav.Link eventKey="TotalCalculation">Total Calculation</Nav.Link>
+                <Nav.Link eventKey="Export">Total Calculation</Nav.Link>
                 <Nav.Link eventKey="Winner">Winner !</Nav.Link>
               </Nav.Item>
               
@@ -42,7 +46,9 @@ class PanelFrame extends React.Component{
               <Tab.Pane eventKey="Judges"><JudgePage eventName={this.props.eventName} judgeData={this.props.judgeData}></JudgePage></Tab.Pane>
               <Tab.Pane eventKey="Teams"><TeamPage eventName={this.props.eventName} teamData={this.props.teamData} ></TeamPage></Tab.Pane>
               <Tab.Pane eventKey="AssignTeams"><AssignPage eventName={this.props.eventName} teamData={this.props.teamData} judgeData={this.props.judgeData}></AssignPage></Tab.Pane>
-              {/* <Tab.Pane eventKey="TotalCalculation"><Ap teamData={this.props.teamData} teamData2={this.props.teamData2} judgeData={this.props.judgeData}></Ap></Tab.Pane> */}
+              <Tab.Pane eventKey="TotalCalculation"><TotalPage judgeData={this.props.judgeData} teamData={this.props.teamData} teamData2={this.props.teamData2}></TotalPage></Tab.Pane>
+              <Tab.Pane eventKey="Export"><ExportPage judgeData={this.props.judgeData} teamData={this.props.teamData} teamData2={this.props.teamData2}></ExportPage></Tab.Pane>
+              <Tab.Pane eventKey="Winner"><WinnerPage judgeData={this.props.judgeData} teamData={this.props.teamData} teamData2={this.props.teamData2}></WinnerPage></Tab.Pane>
 
             </Tab.Content>
           </Col>
