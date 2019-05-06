@@ -1,20 +1,7 @@
 import React from 'react';
-import {
- withRouter
-} from 'react-router-dom';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
-import Table from 'react-bootstrap/Table';
-import Tabs from 'react-bootstrap/Tabs';
-import Tab from 'react-bootstrap/Tab';
+import { Container, Row, Col, Card, Tab, Table, Tabs } from 'react-bootstrap';
 var JudgeObj = require('../data/judge');
 import fire from '../config/firebase';
-var db = fire.firestore();
-import firebase from 'firebase/app';
-
-
 
 class TotalPage extends React.Component{
   constructor(props){
@@ -61,7 +48,6 @@ class TotalPage extends React.Component{
                   <th>Total</th>
                 </tr>
               </thead>
-
               {this.displaybyTeamsJudge(name)}                
             </Table>
             </Card.Text>
@@ -97,7 +83,6 @@ class TotalPage extends React.Component{
             </tbody>
           teamList.push(temp);
         } 
-
         var temp = 
           <Table>
             <thead>
@@ -111,7 +96,7 @@ class TotalPage extends React.Component{
       }else{
       }
     }
-    return teamList
+    return teamList;
   }
 
   create_table(){
@@ -142,13 +127,13 @@ class TotalPage extends React.Component{
         <Row className="panel-row">
           <Col className="panel-col top">
             <h1 id="nihao" className="tab-content-header-h1">Total Calculation</h1>
-            <button className="logout-btn">< img className="logout-img"onClick={this.onLogout.bind(this)} src={require('../assets/sign-out.png')}></img></button>
+            <button className="logout-btn"><img className="logout-img"onClick={this.onLogout.bind(this)} src={require('../assets/sign-out.png')}></img></button>
           </Col>
         </Row>
         <div className="panel-main-wrapper">
           <Container className="panel-main-container" fluid={true}>
             <Row>
-              <Col><p className="header">Genererate Judge Account</p></Col>
+              <Col><p className="header">Display Total Scores</p></Col>
             </Row>
             <Row>
               <Col>        
@@ -158,7 +143,6 @@ class TotalPage extends React.Component{
           </Container>
         </div>
       </Container>
-
     );
   }
 }

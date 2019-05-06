@@ -6,6 +6,7 @@ import * as firebase from 'firebase/app';
 import PanelFrame from '../menu/panel-frame';
 var JudgeObj = require('../data/judge');
 var TeamObj = require('../data/team');
+var TeamObj2 = require('../data/team2');
 
 class Events extends React.Component {
   constructor(props) {
@@ -17,36 +18,64 @@ class Events extends React.Component {
       events: [],
       chosenEvent: '',
       teamData: [],
+      teamData2: [],
       judgeData: []
     }
     this.db = fire.firestore();
+  }
+  getEventData() {
+    fire.firestore().collection('events').where("event", "==", true)
+      .get()
+      .then(function (querySnapshot) {
+        var eventL = [];
+        querySnapshot.forEach(function (doc) {
+          // doc.data() is never undefined for query doc snapshots
+          eventL.push([doc.data().eventName, doc.data().eventDate]);
+        });
+        return eventL;
+      }).then(eventL => {
+        this.setState({ events: eventL });
+      })
+      .catch(function (error) {
+        console.log("Error getting documents: ", error);
+      });
+  }
+  // Get existing events from firebase
+  onEnterEvent(eventName) {
+    this.setState({ chosenEvent: eventName });
+    this.getTeamData(eventName);
+    this.getJudgeData(eventName);
   }
   // Use the event name passed in to get the team data under that event
   getTeamData(name) {
     var docRef = this.db.collection(name).doc('teams');
     docRef.get().then(function (doc) {
       if (doc.exists) {
-        console.log("Team data:", doc.data());
         var teamList = [];
+        var teamList2 = [];
         for (var x in doc.data()) {
           if (x != "irrelevant") {
             var temp = new TeamObj(doc.data()[x].teamName, doc.data()[x].appName, doc.data()[x].school, doc.data()[x].appDescription, doc.data()[x].scores);
+            var temp2 = new TeamObj2(doc.data()[x].teamName, doc.data()[x].appName, doc.data()[x].scores, doc.data()[x].totalNorScore, doc.data()[x].school);
             teamList.push(temp);
+            teamList2.push(temp2);
           } else {
           }
         }
-        return (teamList)
+        var combine = [teamList, teamList2];
+        return (combine);
       } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
       }
-    }).then(teamList => {
-      this.setState({ teamData: teamList });
+    }).then(combine => {
+      this.setState({ teamData: combine[0], teamData2: combine[1] });
     })
       .catch(function (error) {
         console.log("Error getting document:", error);
       });
   }
+
   // Use the event name passed in to get the judge data under that event
   getJudgeData(name) {
     var docRef = this.db.collection(name).doc('judges');
@@ -70,24 +99,6 @@ class Events extends React.Component {
     })
       .catch(function (error) {
         console.log("Error getting document:", error);
-      });
-  }
-  // Get existing events from firebase
-  getEventData() {
-    fire.firestore().collection('events').where("event", "==", true)
-      .get()
-      .then(function (querySnapshot) {
-        var eventL = [];
-        querySnapshot.forEach(function (doc) {
-          // doc.data() is never undefined for query doc snapshots
-          eventL.push([doc.data().eventName, doc.data().eventDate]);
-        });
-        return eventL;
-      }).then(eventL => {
-        this.setState({ events: eventL });
-      })
-      .catch(function (error) {
-        console.log("Error getting documents: ", error);
       });
   }
 
@@ -147,11 +158,6 @@ class Events extends React.Component {
     return eventCard;
   }
 
-  onEnterEvent(eventName) {
-    this.setState({ chosenEvent: eventName });
-    this.getTeamData(eventName);
-    this.getJudgeData(eventName);
-  }
   onDeleteEvent(x, eventName) {
     // Delete event locally from state
     var copyData = this.state.events;
@@ -231,10 +237,9 @@ class Events extends React.Component {
           </div>
         }
         {this.state.chosenEvent &&
-          <PanelFrame eventName={this.state.chosenEvent}teamData={this.state.teamData} judgeData={this.state.judgeData} teamData2={this.props.teamData2}></PanelFrame>
+          <PanelFrame eventName={this.state.chosenEvent}teamData={this.state.teamData} teamData2={this.state.teamData2}judgeData={this.state.judgeData}></PanelFrame>
         }
       </Container>
-
     );
   }
 }

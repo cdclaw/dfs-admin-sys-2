@@ -1,9 +1,5 @@
 import React from 'react';
-import Container from 'react-bootstrap/Container';
-import Tab from 'react-bootstrap/Tab';
-import Nav from 'react-bootstrap/Nav';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { Container, Row, Col, Nav, Tab } from 'react-bootstrap';
 require('./menu-frame.css');
 import TeamPage from '../teams-page/teams-page';
 import JudgePage from '../judges-page/judges-page';
@@ -21,8 +17,8 @@ class PanelFrame extends React.Component{
   render(){
     return(
       <Tab.Container id="left-tabs" defaultActiveKey="Judges">
-        <Row className="panel-row">
 
+        <Row className="panel-row">
           <Col className="panel-col left" sm={2} xl={1}>
             <div className="panel-logo-div">
               <img className="panel-logo"src={require('../assets/dfs_programlogo_appjam_stacked.png')}></img>
@@ -33,11 +29,10 @@ class PanelFrame extends React.Component{
                 <Nav.Link eventKey="Judges">Judges</Nav.Link>
                 <Nav.Link eventKey="Teams">Teams</Nav.Link>
                 <Nav.Link eventKey="AssignTeams">Assign Teams</Nav.Link>
-                <Nav.Link eventKey="TotalCalculation">Total Calculation</Nav.Link>
-                <Nav.Link eventKey="Export">Total Calculation</Nav.Link>
+                <Nav.Link eventKey="TotalScore">Total Score</Nav.Link>
+                <Nav.Link eventKey="Export">Export</Nav.Link>
                 <Nav.Link eventKey="Winner">Winner !</Nav.Link>
               </Nav.Item>
-              
             </Nav>
           </Col>
 
@@ -46,10 +41,9 @@ class PanelFrame extends React.Component{
               <Tab.Pane eventKey="Judges"><JudgePage eventName={this.props.eventName} judgeData={this.props.judgeData}></JudgePage></Tab.Pane>
               <Tab.Pane eventKey="Teams"><TeamPage eventName={this.props.eventName} teamData={this.props.teamData} ></TeamPage></Tab.Pane>
               <Tab.Pane eventKey="AssignTeams"><AssignPage eventName={this.props.eventName} teamData={this.props.teamData} judgeData={this.props.judgeData}></AssignPage></Tab.Pane>
-              <Tab.Pane eventKey="TotalCalculation"><TotalPage judgeData={this.props.judgeData} teamData={this.props.teamData} teamData2={this.props.teamData2}></TotalPage></Tab.Pane>
+              <Tab.Pane eventKey="TotalScore"><TotalPage judgeData={this.props.judgeData} teamData={this.props.teamData} teamData2={this.props.teamData2}></TotalPage></Tab.Pane>
               <Tab.Pane eventKey="Export"><ExportPage judgeData={this.props.judgeData} teamData={this.props.teamData} teamData2={this.props.teamData2}></ExportPage></Tab.Pane>
               <Tab.Pane eventKey="Winner"><WinnerPage judgeData={this.props.judgeData} teamData={this.props.teamData} teamData2={this.props.teamData2}></WinnerPage></Tab.Pane>
-
             </Tab.Content>
           </Col>
         </Row>
