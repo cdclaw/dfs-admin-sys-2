@@ -1,14 +1,12 @@
 import React from 'react';
-import { Container, Row, Col, Card, Tab, Table, Tabs } from 'react-bootstrap';
-var JudgeObj = require('../data/judge');
+import { Container, Row, Col } from 'react-bootstrap';
 import fire from '../config/firebase';
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
+require('./export-page.css');
 
 class ExportPage extends React.Component{
   constructor(props){
     super(props);
-    this.state = {       
-    }
     this.db = fire.firestore();
   }
 
@@ -52,7 +50,6 @@ class ExportPage extends React.Component{
           row_info.push(this.props.teamData2[i].scores[j].totalScore);
           check.push(this.props.teamData2[i].scores[j].totalScore);
         }
-
       }
       if (check.length==0){
         row_info.push(0);
@@ -251,32 +248,6 @@ class ExportPage extends React.Component{
     return table;
   }
 
-
-  display(){
-    var temp = 
-      <Table id = "1">
-        <thead>
-          <tr>
-              <th>Firstname</th>
-              <th>Lastname</th>
-              <th>Age</th>
-          </tr>
-          <tr>
-              <td>Jill</td>
-              <td>Smith</td>
-              <td>50</td>
-          </tr>
-          <tr>
-              <td>Eve</td>
-              <td>Jackson</td>
-              <td>94</td>
-          </tr>
-        </thead>
-      </Table>
-    return temp;
-  }
-
-
   render(){
 
     return(
@@ -293,32 +264,32 @@ class ExportPage extends React.Component{
               <Col>
                 <Row>
                   <Col>
-                    <table id = "1">
+                    <table id="1" className="export-table">
                       {this.display_raw_data()}
                     </table>
                     <ReactHTMLTableToExcel
                       id="test-table-xls-button"
-                      className="download-table-xls-button"
+                      className="table-btn export"
                       table="1"
                       filename="tablexls"
                       sheet="tablexls"
                       buttonText="Export raw data to Excel"/>
-                    <table id = "2" >
+                    <table id="2" className="export-table">
                       {this.display_nor_data()}
                     </table>
                     <ReactHTMLTableToExcel
                       id="test-table-xls-button"
-                      className="download-table-xls-button"
+                      className="table-btn export"
                       table="2"
                       filename="tablexls"
                       sheet="tablexls"
                       buttonText="Export normalized data to Excel"/>
-                    <table id = "3">
+                    <table id="3" className="export-table">
                       {this.display_winner()}
                     </table>
                     <ReactHTMLTableToExcel
                       id="test-table-xls-button"
-                      className="download-table-xls-button"
+                      className="table-btn export last"
                       table="3"
                       filename="tablexls"
                       sheet="tablexls"

@@ -117,7 +117,7 @@ class AssignPage extends React.Component {
   // Remove selected row from firebase
   remove(teamName, judgeName) {
     console.log("removing team: ", teamName);
-    var judgeRef = this.db.collection('event-20').doc('judges');
+    var judgeRef = this.db.collection(this.props.eventName).doc('judges');
     var stringof = judgeName + ".teams." + teamName;
     let removeT = judgeRef.update({
       [stringof]: firebase.firestore.FieldValue.delete()
@@ -133,7 +133,7 @@ class AssignPage extends React.Component {
   addTeamToJudge(judgeName, e) {
     console.log("selected team: ", judgeName, e.target.value);
     var teamName = e.target.value;
-    var judgeRef = this.db.collection('event-20').doc('judges');
+    var judgeRef = this.db.collection(this.props.eventName).doc('judges');
     for (let y = 0; y < this.props.teamData.length; y++) {
       if (this.props.teamData[y].teamName == e.target.value) {
         var appName = this.props.teamData[y].appName;
@@ -158,7 +158,7 @@ class AssignPage extends React.Component {
     }).then(result => {
       this.displayLocalTeam();
     });
-    var teamRef = this.db.collection('event-20').doc('teams');
+    var teamRef = this.db.collection(this.props.eventName).doc('teams');
     var stringof2 = teamName + ".scores." + judgeName;
     var temp2 = {
       judgeName: judgeName

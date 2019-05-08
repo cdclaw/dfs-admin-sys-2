@@ -74,13 +74,15 @@ class TeamPage extends React.Component{
   }
 
   // Delete the selected row from the interface
-  deleteRow(x){
+  deleteRow(x) {
+    console.log("before: ", this.props.teamData);
     console.log("deleteRow: ", x);
     var teamName = this.props.teamData[x].teamName;
     var copyData = this.props.teamData;
     copyData.splice(x,1);
     this.setState({teamData: copyData});
     this.removeTeam(teamName);  
+    console.log("after: ", this.props.teamData);
   }
   // Remove the selected team from firebase
   removeTeam(teamName){
@@ -162,7 +164,7 @@ class TeamPage extends React.Component{
       <Container className="panel-content-container" fluid={true}>
         <Row className="panel-row">
           <Col className="panel-col top">
-            <h1 className="tab-content-header-h1">Manage Team Information</h1>
+            <h1 className="tab-content-header-h1">Manage Teams Information</h1>
             <button className="logout-btn"><img className="logout-img"onClick={this.onLogout.bind(this)} src={require('../assets/sign-out.png')}></img></button>
           </Col>
         </Row>

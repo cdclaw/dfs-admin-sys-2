@@ -1,0 +1,67 @@
+.winner-img{
+  margin-left: 20px;
+  height: auto;
+  width: 20%;
+}
+.winner-header1{
+  color: #A0AAD2;
+  font-size: 120%;
+  font-weight: 300;
+  margin: 20px 0 0 20px;
+}
+.winner-header2{
+  color: #4156A6;
+  font-size: 180%;
+  font-weight: 400;
+  margin: 0 0 20px 20px;
+}
+.winner-table{
+  margin: 20px;
+  background-color: #ffffff;
+  max-width: 70%;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.55);
+}
+.winner-img-div{
+  background-color: #A0AAD2;
+  text-align: center;
+  height: 100%; 
+}
+.winner-rank{
+  width: 30%;
+  height: auto;
+  margin-top: 20px;
+  max-width: 38px;
+}
+.winner-rank.rest{
+  width: 40%;
+  height: auto;
+  margin-top: 20px;
+  max-width: 51px;
+}
+.winner-text{
+  margin-bottom: 0;
+  font-size: 140%;
+  font-weight: 400;
+  margin-top: 10px;
+}
+
+.winner-small{
+  margin-bottom: 10px;
+  font-size: 100%;
+  font-weight: 300;
+  color: #A0AAD2;
+}
+.winner-text.first {
+  color: #B7A900;
+}
+.winner-text.second {
+  color: #797979;
+}
+.winner-text.third {
+  color: #CD7F32;
+}
+.winner-text.rest {
+  color: #4156A6;
+}
+
+
