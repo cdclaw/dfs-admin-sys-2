@@ -264,9 +264,11 @@ class ExportPage extends React.Component{
               <Col>
                 <Row>
                   <Col>
-                    <table id="1" className="export-table">
-                      {this.display_raw_data()}
-                    </table>
+                    <div className="export-t-div">
+                      <table id="1" className="export-table">
+                        {this.display_raw_data()}
+                      </table>
+                    </div>
                     <ReactHTMLTableToExcel
                       id="test-table-xls-button"
                       className="table-btn export"
@@ -274,9 +276,11 @@ class ExportPage extends React.Component{
                       filename="tablexls"
                       sheet="tablexls"
                       buttonText="Export raw data to Excel"/>
-                    <table id="2" className="export-table">
-                      {this.display_nor_data()}
-                    </table>
+                    <div className="export-t-div">
+                      <table id="2" className="export-table">
+                        {this.display_nor_data()}
+                      </table>
+                    </div>
                     <ReactHTMLTableToExcel
                       id="test-table-xls-button"
                       className="table-btn export"
@@ -284,9 +288,11 @@ class ExportPage extends React.Component{
                       filename="tablexls"
                       sheet="tablexls"
                       buttonText="Export normalized data to Excel"/>
-                    <table id="3" className="export-table">
-                      {this.display_winner()}
-                    </table>
+                    <div className="export-t-div">
+                      <table id="3" className="export-table">
+                        {this.display_winner()}
+                      </table>
+                    </div>
                     <ReactHTMLTableToExcel
                       id="test-table-xls-button"
                       className="table-btn export last"

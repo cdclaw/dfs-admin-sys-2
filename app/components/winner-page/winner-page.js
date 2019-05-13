@@ -74,7 +74,6 @@ class WinnerPage extends React.Component{
     if (wl.length >= 5) {
       var temp = (
         <div className="winner-table">
-          {/* <Row><Col lg={2}><div className="winner-img-div top">Rank</div></Col><Col lg={2}>School</Col><Col lg={2}>Team</Col><Col lg={3}>App</Col><Col lg={3}>Total Score</Col></Row> */}
           <Row>
             <Col sm={2}><div className="winner-img-div"><img className="winner-rank" src={require('../assets/1.png')}></img></div></Col>
             <Col sm={3}><p className="winner-text first">{wl[0][0]}<br></br></p><p className="winner-small">School</p></Col>
