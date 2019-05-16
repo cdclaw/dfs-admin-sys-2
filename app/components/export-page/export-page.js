@@ -12,7 +12,7 @@ class ExportPage extends React.Component{
 
   update_database(name, value){
     var stringof = name + ".totalNorScore";
-    this.db.collection("event-19").doc("teams").update({
+    this.db.collection(this.props.eventName).doc("teams").update({
       [stringof]:value
     })
     .then(function() {

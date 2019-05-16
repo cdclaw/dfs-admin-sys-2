@@ -534,7 +534,7 @@ class AssignPage extends React.Component {
   addTeamToJudge(judgeName, e) {
     console.log("selected team: ", judgeName, e.target.value);
     var teamName = e.target.value;
-    var judgeRef = this.db.collection('event-20').doc('judges');
+    var judgeRef = this.db.collection('event-520').doc('judges');
     for (let y = 0; y < this.props.teamData.length; y++) {
       if (this.props.teamData[y].teamName == e.target.value) {
         var appName = this.props.teamData[y].appName;
@@ -559,7 +559,7 @@ class AssignPage extends React.Component {
     }).then(result => {
       this.displayLocalTeam();
     });
-    var teamRef = this.db.collection('event-20').doc('teams');
+    var teamRef = this.db.collection('event-520').doc('teams');
     var stringof2 = teamName + ".scores." + judgeName;
     var temp2 = {
       judgeName: judgeName
@@ -621,7 +621,7 @@ class AssignPage extends React.Component {
   }
 
 
-  autoAssign() {
+  autoAssign2() {
     var schoolteamMap = new Map()
     var teamlist = []
     var judgeteamMap = new Map()
@@ -724,11 +724,136 @@ class AssignPage extends React.Component {
     this.setState({ teamjudgemap: teamjudgeMap }, () => { console.log("hhhhhh",this.state.teamjudgemap); this.autoAssigntSave() })
     console.log(this.state.teamjudgeMap)
   }
+  autoAssign(){
+    var schoolteamMap = new Map()
+    var teamlist = []
+    var judgeteamMap = new Map()
+    var teamjudgeMap = new Map()
+    for (var x in this.props.teamData){
+      var teams = [] 
+      schoolteamMap.set(this.props.teamData[x].school, teams)
+    }
+    for(var x in this.props.teamData){
+      //console.log("schoolname",this.props.teamData[x].school)
+      if ([...schoolteamMap.keys()].includes(this.props.teamData[x].school)){
+        var currentteams = schoolteamMap.get(this.props.teamData[x].school)
+        //console.log("thisschools",currentteams)
+        currentteams.push(this.props.teamData[x].teamName)
+        //schoolteamMap.set(this.props.teamData[x].school, currentteams)
+      }else{
+        //schoolteamMap.set(this.props.teamData[x].school, teamlist)
+      }
+    }
+    //construct maps from database first
+    for (var x in this.props.judgeData){
+      var teams = [] 
+      // for (var x in this.props.judgeData[x].teams){
+      //   teams.push(x)
+      // }
+      judgeteamMap.set(this.props.judgeData[x].name, teams)
+    }
+    for (var x in this.props.teamData){
+      var judges = []
+      // for (var x in this.props.teamData[x].scores){
+      //   teams.push(x)
+      // }
+      teamjudgeMap.set(this.props.teamData[x].teamName, judges)
+    }
+    //console.log(judgeteamMap)
+    //var numberofschool = [...schoolteamMap.keys()].length
+    var numberofjudge = this.props.judgeData.length
+    var numberofteam = this.props.teamData.length
+    var relation = Math.ceil(numberofteam/numberofjudge)
+    //Math.ceil(relation)
+    //console.log(numberofteam)
+    //console.log(relation)
+    var numberofiteration = 0
+    var judges = []
+   
+    for(var j of judgeteamMap.keys()){
+      judges.push(j)
+    }
+    
+    
+    var teams = []
+    // while (numberofiteration <= relation){
+      for (var t of schoolteamMap.values()){
+        for (var i in t){
+          teams.push(t[i])
+        } 
+      }
+   
+    var c = 0 
+   
+    var n = 0
+
+    var p = 0
+    
+    while(n < relation){
+      for (var i in teams ){
+    
+        var currentteams = judgeteamMap.get(judges[c])
+        var currentjudges = teamjudgeMap.get(teams[i])
+        while(currentteams.includes(teams[i])){
+          if (c < judges.length - 1){
+            //c++
+            let j = Math.floor(Math.random() * c )
+            // c+= 1
+            // console.log(c)
+            //c = j
+            //c +=1
+            }else{
+            c = 0
+            }
+        }
+        currentteams.push(teams[i])
+        currentjudges.push(judges[c])
+        judgeteamMap.set(judges[c],currentteams)
+        teamjudgeMap.set(teams[i],currentjudges)
+        if (c < judges.length - 1){
+          //c++
+          let j = Math.floor(Math.random() * (c+1) )
+          // console.log(c)
+          // //c += 3
+          c = j
+          // c++
+          
+        }else{
+        c = 0
+      }
+      console.log(teamjudgeMap)
+      
+      }
+      // p += 1
+      // if(p <= 1){
+         //this.shuffleJudgeList(judges)
+      // }
+      
+      n += 1
+      //console.log(judgeteamMap) 
+    }
+  //console.log("hhhhh",judgeteamMap) 
+    this.setState({judgeteammap: judgeteamMap},()=>{console.log(this.state.teamjudgemap);this.autoAssignjSave()})
+    this.setState({schoolteammap: schoolteamMap})
+    this.setState({teamjudgemap: teamjudgeMap},()=>{console.log(this.state.teamjudgemap);this.autoAssigntSave()})
+  //console.log(this.state.judgeteammap)
+  }
+  shuffleJudgeList(array){
+    console.log("before", array)
+    for (let i = array.length - 5; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
+      //[array[i], array[j]] = [array[j], array[i]]; // swap elements
+      var temp = array[i]
+      array[i] = array[j]
+      array[j] = temp
+    }
+    console.log(array)
+  
+  }
   autoAssignjSave() {
-    var judgeRef = this.db.collection('event-20').doc('judges');
+    var judgeRef = this.db.collection('event-520').doc('judges');
     for (var [judge, teams] of this.state.judgeteammap.entries()) {
       var temp = {};
-      // console.log("level1: ", judge, teams);
       for (let i = 0; i < this.props.teamData.length; i++) {
         for (var t in teams) {
           if (this.props.teamData[i].teamName == teams[t]) {
@@ -738,20 +863,6 @@ class AssignPage extends React.Component {
               school: this.props.teamData[i].school,
               appDescription: this.props.teamData[i].appDescription
             }
-            // var stringOf = judge+".teams"
-
-            // var stringof = judge + ".teams." + teams[t]
-            // var temp = {
-            //   teamName: this.props.teamData[i].teamName,
-            //   appName: this.props.teamData[i].appName,
-            //   school: this.props.teamData[i].school,
-            //   appDescription: this.props.teamData[i].appDescription
-            // }
-            // judgeRef.update({
-            //   [stringof]: temp
-            // }).then(function () {
-            //   console.log("Document successfully updated!llll");
-            // })
           }
         }
       }
@@ -765,28 +876,41 @@ class AssignPage extends React.Component {
   }
   autoAssigntSave() {
     //console.log("shima",this.state.teamjudgemap)
-    var teamRef = this.db.collection('event-20').doc('teams');
-    //console.log("shima",this.state.teamjudgemap)
+    var teamRef = this.db.collection('event-520').doc('teams');
     for (var [team, judges] of this.state.teamjudgemap.entries()) {
-      for (var j in judges) {
-        var stringof = team + ".scores." + judges[j]
-        var temp = {
-          judgeName: judges[j]
+      var temp = {};
+      for (let i = 0; i < this.props.judgeData.length; i++) {
+        for (var j in judges) {
+          // var stringof = team + ".scores." + judges[j]
+          // var temp = {
+          //   judgeName: judges[j]
+
+          // }
+          // teamRef.update({
+          //   [stringof]: temp
+          // }).then(function () {
+          //   console.log("Document successfully updated!");
+          // })
+          if (this.props.judgeData[i].name == judges[j]){
+            temp[this.props.judgeData[i].name] = {
+              judgeName: this.props.judgeData[i].name
+            }
+
+          }
 
         }
-        teamRef.update({
-          [stringof]: temp
-        }).then(function () {
-          console.log("Document successfully updated!");
-        })
-
-
       }
+      var stringOf = team + ".scores";
+      teamRef.update({
+        [stringOf]: temp
+      }).then(function (){
+        console.log("Document successfully updated!llll");
+      });
     }
   }
   saveChanges() {
 
-    var judgeRef = this.db.collection('event-20').doc('judges');
+    var judgeRef = this.db.collection('event-520').doc('judges');
     for (var judge in this.state.deletejudgeteams) {
       for (let i = 0; i < this.props.teamData.length; i++) {
         for (var t in this.state.deletejudgeteams[judge]) {
@@ -808,7 +932,7 @@ class AssignPage extends React.Component {
       }
     }
 
-    var teamRef = this.db.collection('event-20').doc('teams');
+    var teamRef = this.db.collection('event-520').doc('teams');
     for (var team in this.state.deleteteamsjudge) {
       for (let i = 0; i < this.props.teamData.length; i++) {
         for (var j in this.state.deleteteamsjudge[team]) {

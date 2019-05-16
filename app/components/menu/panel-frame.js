@@ -41,7 +41,7 @@ class PanelFrame extends React.Component{
               <Tab.Pane eventKey="Teams"><TeamPage eventName={this.props.eventName} teamData={this.props.teamData} ></TeamPage></Tab.Pane>
               <Tab.Pane eventKey="AssignTeams"><AssignPage eventName={this.props.eventName} teamData={this.props.teamData} judgeData={this.props.judgeData}></AssignPage></Tab.Pane>
               <Tab.Pane eventKey="TotalScore"><TotalPage judgeData={this.props.judgeData} teamData={this.props.teamData} teamData2={this.props.teamData2}></TotalPage></Tab.Pane>
-              <Tab.Pane eventKey="Export"><ExportPage judgeData={this.props.judgeData} teamData={this.props.teamData} teamData2={this.props.teamData2}></ExportPage></Tab.Pane>
+              <Tab.Pane eventKey="Export"><ExportPage eventName={this.props.eventName}judgeData={this.props.judgeData} teamData={this.props.teamData} teamData2={this.props.teamData2}></ExportPage></Tab.Pane>
               <Tab.Pane eventKey="Winner"><WinnerPage eventName={this.props.eventName} judgeData={this.props.judgeData} teamData={this.props.teamData} teamData2={this.props.teamData2}></WinnerPage></Tab.Pane>
             </Tab.Content>
           </Col>

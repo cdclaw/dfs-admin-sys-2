@@ -19,6 +19,7 @@ class TotalPage extends React.Component{
         totalScore: 0
     }
     this.displaybyTeamsJudge = this.displaybyTeamsJudge.bind(this);
+    console.log("total: ", this.props.teamData2);
   }
 
   onLogout(e){
@@ -61,9 +62,7 @@ class TotalPage extends React.Component{
   displaybyTeamsJudge(name){
     var teamList = [];
     for ( var i in this.props.teamData2){
-      let data = this.props.teamData2[i];
       if (this.props.teamData2[i].teamName == name && this.props.teamData2[i].scores != {}){
-        let data2 = this.props.teamData2[i].scores;
         let totalscore = 0;
         for (var j in this.props.teamData2[i].scores){
           totalscore = totalscore + this.props.teamData2[i].scores[j].totalScore
