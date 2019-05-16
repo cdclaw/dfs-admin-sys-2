@@ -205,7 +205,7 @@ class AssignPage extends React.Component{
   addTeamToJudge(judgeName, e){
     console.log("selected team: ", judgeName, e.target.value);
     var teamName = e.target.value;
-    var judgeRef = this.db.collection('test1').doc('judges');
+    var judgeRef = this.db.collection(this.props.eventName).doc('judges');
     for (let y=0; y<this.props.teamData.length; y++){
       if (this.props.teamData[y].teamName == e.target.value){
         var appName = this.props.teamData[y].appName;
@@ -230,7 +230,7 @@ class AssignPage extends React.Component{
     }).then(result=>{
       this.displayLocalTeam();
     });
-    var teamRef = this.db.collection('test1').doc('teams');
+    var teamRef = this.db.collection(this.props.eventName).doc('teams');
     var stringof2 = teamName+".scores."+judgeName;
     var temp2 = {
       judgeName: judgeName
@@ -401,7 +401,7 @@ autoAssign(){
   
 
 autoAssignjSave(){
-  var judgeRef = this.db.collection('test1').doc('judges');
+  var judgeRef = this.db.collection(this.props.eventName).doc('judges');
   for (var [judge, teams] of this.state.judgeteammap.entries()) {
   var temp = {};
   // console.log("level1: ", judge, teams);
@@ -429,7 +429,7 @@ autoAssignjSave(){
 }
 autoAssigntSave(){
   //console.log("shima",this.state.teamjudgemap)
-  var teamRef = this.db.collection('test1').doc('teams');
+  var teamRef = this.db.collection(this.props.eventName).doc('teams');
   //console.log("shima",this.state.teamjudgemap)
   for(var [team,judges] of this.state.teamjudgemap.entries()){
         for (var j in judges){
@@ -450,7 +450,7 @@ autoAssigntSave(){
 }
 saveChanges(){
  
-  var judgeRef = this.db.collection('test1').doc('judges');
+  var judgeRef = this.db.collection(this.props.eventName).doc('judges');
   for(var judge in this.state.deletejudgeteams){
    
         for (var t in this.state.deletejudgeteams[judge]){
@@ -500,7 +500,7 @@ saveChanges(){
 
     }
   
-  var teamRef = this.db.collection('test1').doc('teams');
+  var teamRef = this.db.collection(this.props.eventName).doc('teams');
   for(var team in this.state.deleteteamsjudge){
     
         for (var j in this.state.deleteteamsjudge[team]){

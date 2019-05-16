@@ -16,7 +16,7 @@ class PanelFrame extends React.Component{
 
   render(){
     return(
-      <Tab.Container id="left-tabs" defaultActiveKey="AssignTeams">
+      <Tab.Container id="left-tabs" defaultActiveKey="Judges">
         <Row className="panel-row">
           <Col className="panel-col left" sm={2} xl={1}>
             <div className="panel-logo-div">

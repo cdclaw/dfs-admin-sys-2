@@ -7,6 +7,7 @@ import PanelFrame from '../menu/panel-frame';
 import Popup from 'reactjs-popup';
 import { MDBDataTable } from 'mdbreact';
 import DatePicker from 'react-datepicker';
+import { moment } from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 
 var JudgeObj = require('../data/judge');
@@ -18,6 +19,7 @@ const contentStyle={
   maxWidth: "1000px",
   width:"90%"
 }
+
 
 class Events extends React.Component {
   constructor(props) {
@@ -45,6 +47,7 @@ class Events extends React.Component {
     this.closeModalHandler = this.closeModalHandler.bind(this);
     //this.handleDateChange = this.handleDateChange.bind(this);
   }
+
 
   handleDateChange(date){
     var handleDateChangeDebug = false;
@@ -320,7 +323,7 @@ class Events extends React.Component {
           <Col style={{backgroundColor:"#4156a6"}}></Col>
           <Col xs={10}>
             <div class="text-center">
-              <Popup className = "popup-content" style={{position: 'absolute', background: 'rgb(255, 255, 255)', width: '90%' /*margin: 'auto'*/, border: '1px solid rgb(187, 187, 187)', zIndex: 999}}
+              <Popup style={{arrow: 'false', position: 'relative', background: 'rgb(255, 255, 255)', width: '90%' /*margin: 'auto'*/, border: '1px solid rgb(187, 187, 187)', zIndex: 999}}
                         trigger={<button className="events-modal-button" 
                                                     on="hover"
                                                     onClick={(e) => this.onAddEvent(e)}
@@ -329,10 +332,23 @@ class Events extends React.Component {
                                                     </button>}
                         backgroundColor= "rgba(0,0,0,0.5)"
                         position="top left"
+                        modal
                         closeOnDocumentClick
                         margin="0"
                         onClick={(e) => this.onAddEvent(e)}
                         contentStyle={{ width: "400px", height: "300px", padding: "3px", border: "none" }}>
+                        {/*<div style={{height: '10px',
+                                      width: '10px', 
+                                      position: 'absolute',
+                                       background: 'rgb(255, 255, 255)',
+                                        transform: 'rotate(45deg)',
+                                        margin: '-5px',
+                                        zIndex: '-1',
+                                        boxShadow: 'rgba(0, 0, 0, 0.2) 1px 1px 1px',
+                                        top: '100%',
+                                        left: '122.836px'
+                                      }}>
+                        </div>*/}
                 <Form
                   noValidate
                   validated={validated}

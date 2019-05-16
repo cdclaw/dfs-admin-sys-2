@@ -179,7 +179,7 @@ class TeamPage extends React.Component{
                 {this.showData()}
               </Col>
               <Col lg={5} className="tp-form-col">
-                <div className="position-fixed tp-form-div">
+                {/* <div className="position-fixed tp-form-div"> */}
                   <p className="header tp">Add Team</p>
                   <Form
                   noValidate
@@ -233,7 +233,7 @@ class TeamPage extends React.Component{
                     </Form.Row>
                   </Form>
                   <button className="submitform-btn team" type="button" onClick={e => this.handleSubmit(e)}>Create</button>
-                </div>
+                {/* </div> */}
               </Col>
             </Row>
           </Container>
