@@ -65,7 +65,7 @@ class Login extends React.Component{
         </Row>
         <Row>
           <Col className="login-col"sm={2} lg={3} xl={4}></Col>
-          <Col className="login-col"xs={12} sm={8} lg={6} xl={4}><p className="sys-name">Judge</p></Col>
+          <Col className="login-col"xs={12} sm={8} lg={6} xl={4}><p className="sys-name">Admin</p></Col>
           <Col className="login-col"sm={2} lg={3} xl={4}></Col>
 
         </Row>

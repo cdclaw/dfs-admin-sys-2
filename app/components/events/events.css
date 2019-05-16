@@ -423,6 +423,7 @@ input.event-name-input{
 .popup-content{
   width: 400px;
   height: 200px;
+  transform: translate(-25%, 100%) !important;
   z-index:999;
 }
 

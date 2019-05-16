@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "dfs-judging-app"
+  },
+  "targets": {
+    "dfs-judging-app": {
+      "hosting": {
+        "admin": [
+          "dfs-admin-side"
+        ]
+      }
+    }
+  }
+}
