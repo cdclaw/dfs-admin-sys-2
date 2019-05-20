@@ -20,7 +20,8 @@ class JudgePage extends React.Component{
                 authErrorMsg: null,
                 validated: false,
                 emailValid: false,
-                judgeData: this.props.judgeData}
+                judgeData: this.props.judgeData,
+                addTeamFeedback: ""}
     this.db = fire.firestore();
     this.deleteRow =  this.deleteRow.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -40,6 +41,7 @@ class JudgePage extends React.Component{
   }
   onNameChange(e){
     this.setState({name: e.target.value});
+    this.setState({addTeamFeedback: ""});
   }
   onEmailChange(e){
     this.setState({email: e.target.value});
@@ -87,6 +89,7 @@ class JudgePage extends React.Component{
         var temp = new JudgeObj(this.state.name, this.state.email, password, []);
         dataCopy.push(temp);
         this.setState({judgeData: dataCopy});
+        this.setState({addTeamFeedback: "Judge has been added successfully."})    
       }); 
     }
     this.setState({ validated: true });
@@ -187,6 +190,9 @@ class JudgePage extends React.Component{
         <div className="panel-main-wrapper">
           <Container className="panel-main-container" fluid={true}>
             <Row>
+              <Col><p className="header black">Event: {this.props.eventName}</p></Col>
+            </Row>
+            <Row>
               <Col><p className="header">Genererate Judge Account</p></Col>
             </Row>
             
@@ -221,7 +227,7 @@ class JudgePage extends React.Component{
                   <button className="submitform-btn"type="button" onClick={e => this.handleSubmit(e)}>Create</button>
                   <Form.Control.Feedback type="invalid">Please enter a valid judge email.</Form.Control.Feedback>          
                 </Form.Group>
-
+                <p className="team-add-feedback judge">{this.state.addTeamFeedback}</p>
               </Form.Row>
             </Form>  
 

@@ -1,4 +1,5 @@
 import React from 'react';
+require('./total.css');
 import { Container, Row, Col, Card, Tab, Table, Tabs } from 'react-bootstrap';
 var JudgeObj = require('../data/judge');
 import fire from '../config/firebase';
@@ -32,7 +33,7 @@ class TotalPage extends React.Component{
       var name = this.props.teamData[x].teamName;
       var temp = 
         <Card>
-          <Card.Header as="h5">{this.props.teamData[x].teamName + "‘s Total Socre"}</Card.Header>
+          <Card.Title><div className="assign-card-title total">{this.props.teamData[x].teamName + "‘s Total Socre"}</div></Card.Title>
           <Card.Body>
             <Card.Text>
             <Table borderd hover responsive>
@@ -131,6 +132,9 @@ class TotalPage extends React.Component{
         </Row>
         <div className="panel-main-wrapper">
           <Container className="panel-main-container" fluid={true}>
+            <Row>
+              <Col><p className="header black">Event: {this.props.eventName}</p></Col>
+            </Row>
             <Row>
               <Col><p className="header">Display Total Scores</p></Col>
             </Row>

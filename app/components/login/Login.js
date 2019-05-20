@@ -21,6 +21,21 @@ class Login extends React.Component{
   }
   
   submitLogin(e){
+    // fire.auth().setPersistence(fire.auth.Auth.Persistence.SESSION)
+    //   .then(function() {
+    //   // Existing and future Auth states are now persisted in the current
+    //   // session only. Closing the window would clear any existing state even
+    //   // if a user forgets to sign out.
+    //   // ...
+    //   // New sign-in will be persisted with session persistence.
+    //   return fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password);
+    // })
+    //   .catch(function(error) {
+    //   // Handle Errors here.
+    //   console.log(error);
+    //   this.setState({ logineError: error.message });
+    //   this.setState({ accountInvalid: true });
+    // });
     e.preventDefault()
     fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{}).catch((error)=>{
       console.log(error);

@@ -33,7 +33,6 @@ class App extends Component {
     return (
       <div>
         {this.state.user? (<Events></Events>) : (<LoginPage></LoginPage>)}
-        {/* <Events></Events> */}
       </div>
     )
   }

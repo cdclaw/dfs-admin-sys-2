@@ -8,6 +8,13 @@
   font-weight: 500;
   color: #ffffff;
   margin: 0;
+  font-family: 'Rubik', sans-serif;
+}
+.header.black{
+  float: right; 
+  margin-bottom: -20px;
+  margin-right: 15px;
+  font-size: 100%;
 }
 .e-logo-div{
   text-align: center;
@@ -56,10 +63,6 @@ input.event-name-input{
   border-color: #4156A6;
 }
 
-.events-container{
-  
-}
-
 .events-logo {
   width: 140px;
   height: auto;
@@ -67,14 +70,10 @@ input.event-name-input{
 
 .events-section {
   min-height: 500px;
-  /*white, blue*/
-  /*background: #a0aad2;*/
   background: #4156A6;
 }
 
 .events-heading {
-  /*blue, white*/
-  /*color: #4156a6;*/
   color: #ffffff;
   background-color:#4156a6;
   font-weight: 500;
@@ -86,7 +85,6 @@ input.event-name-input{
 .events-input-field {
   padding: 20px 5px;
   margin: 0 0 20px 0;
-  ;
   width: 30%;
   border: none;
   border-radius: 2px;
@@ -142,31 +140,20 @@ input.event-name-input{
   cursor: pointer;
 }
 
-
 .events-modal-circle-button{
   font-family: "Rubik", sans-serif;
   text-align: 'center';
   color: #4156A6;
   cursor: pointer;
   padding: 0px 1px;
-  /*display: inline-block;*/
   margin: 1px 1px;
   letter-spacing: 1px;
-  /*font-size: 1em;*/
-  /*outline: ;*/
   width:30%;
-  /*height: 20%;*/
-  /*position: relative;*/
   font-size: 13px;
-  /*  border: 3px solid #cfcece;
-*/
-  /*background-color: #d9dded;*/
   display:inline-block;
   line-height: 2em;
   font-size:1em;
   flex:1;
-  /*justify-content:'center';*/
-  /*align-items:'center';*/
   background-color: #ffffff;
   border-radius: 70px 70px 70px 70px;
   border-width: 3px;
@@ -176,18 +163,9 @@ input.event-name-input{
   border-width: 0px;
   border-height:0px;
   box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
-  /*border-radius: 150/2px;*/
 }
 
 .events-modal-button {
-  /* color: #4156A6 !important;
-  text-transform: uppercase;
-  background: #ffffff;
-  padding: 5px 10px;
-  border: 3px solid #4156A6 !important;
-  border-radius: 6px;
-  display: inline-block;
-  margin-left: 20px; */
   font-family: "Rubik", sans-serif;
   text-align: center;
   font-weight:400;
@@ -226,17 +204,11 @@ input.event-name-input{
   font-size: 1em;
   outline: none;
   position: relative;
-  /*font-size: 13px;*/
-  /*  border: 3px solid #cfcece;
-*/
-  /*background-color: #d9dded;*/
   background-color: #ffffff;
   border-radius: 10px 10px 10px 10px;
   border-width: 1px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  /*margin-right: 20px;*/
-
 }
 
 .events-create-event-button {
@@ -247,13 +219,8 @@ input.event-name-input{
   display: inline-block;
   margin: 8;
   letter-spacing: 1px;
-  /*font-size: 1em;*/
   outline: none;
-  /*position: relative;*/
   font-size: 13px;
-  /*  border: 3px solid #cfcece;
-*/
-  /*background-color: #d9dded;*/
   background-color: #ffffff;
   border-radius: 10px 10px 10px 10px;
   border-width: 1px;
@@ -327,8 +294,6 @@ input.event-name-input{
 }
 
 .events-firstRow{
-  /*much softer blue:*/
-  /*background-color: #A0AAD2;*/  
   background-color: #4156a6;
 }
 
@@ -358,7 +323,6 @@ input.event-name-input{
 .popup-content {
   width: 400px;
   height: 200px;
-  /*transform: translate(-25%, 100%) !important;*/
   z-index:999;
 }
 
@@ -367,7 +331,6 @@ input.event-name-input{
 } */
 
 .popup-overlay{
-  /*position: fixed; */
   top: 0px; 
   bottom: 0px; 
   left: 0px; 
@@ -420,4 +383,7 @@ input.event-name-input{
 .react-datepicker__navigation--next {
   border-left-color: #ccc;
   right: 1em;
+}
+.app-wrapper{
+  background: #4156A6;
 }

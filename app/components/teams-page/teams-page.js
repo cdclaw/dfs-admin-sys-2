@@ -1,11 +1,7 @@
 import React from 'react';
-import {
-	withRouter
-} from 'react-router-dom';
 require('./team-page.css');
 import {Container, Row, Col, Form, InputGroup} from 'react-bootstrap';
 import fire from '../config/firebase';
-import Table from 'react-bootstrap/Table';
 var TeamObj = require('../data/team');
 import * as firebase from 'firebase/app';
 import { MDBDataTable } from 'mdbreact';
@@ -19,7 +15,8 @@ class TeamPage extends React.Component{
                   appDescription: "",
                   rows: [],
                   validated: false,
-                  teamData: this.props.teamData}
+                  teamData: this.props.teamData,
+                  addTeamFeedback: ""};
     this.db = fire.firestore();
     this.deleteRow =  this.deleteRow.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -29,6 +26,7 @@ class TeamPage extends React.Component{
   }
   onTeamNameChange(e){
     this.setState({teamName: e.target.value});
+    this.setState({addTeamFeedback: ""});
   }
   onAppNameChange(e){
     this.setState({appName: e.target.value});
@@ -39,6 +37,7 @@ class TeamPage extends React.Component{
   onAppDesChange(e){
     this.setState({appDescription: e.target.value});
   }
+  // Add team to firebase
   handleSubmit(event) {
     const form = event.currentTarget;
     if (form.checkValidity() === false || this.state.teamName == "" || this.state.appName == "" || this.state.school == "" || this.state.appDescription == "") {
@@ -60,14 +59,14 @@ class TeamPage extends React.Component{
       data[team.teamName] = team;
       var teamRef = this.db.collection(this.props.eventName).doc('teams');
       teamRef.set(data, {merge: true}).then(function() {
-        console.log("Document successfully written!");
+        console.log("Add team successful!");
       }).then(result=>{
-        // this.displayLocalData();
         var dataCopy=[];
         dataCopy = this.props.teamData;
         var temp = new TeamObj(this.state.teamName, this.state.appName, this.state.school ,this.state.appDescription, []);
         dataCopy.push(temp);
         this.setState({teamData: dataCopy});
+        this.setState({addTeamFeedback: "Team has been added successfully."})    
       });
     }
     this.setState({ validated: true });
@@ -75,8 +74,6 @@ class TeamPage extends React.Component{
 
   // Delete the selected row from the interface
   deleteRow(x) {
-    console.log("before: ", this.props.teamData);
-    console.log("deleteRow: ", x);
     var teamName = this.props.teamData[x].teamName;
     var copyData = this.props.teamData;
     copyData.splice(x,1);
@@ -93,6 +90,7 @@ class TeamPage extends React.Component{
     });
     return removeT;
   }
+  // Show table
   showData() {
     if (this.props.teamData == null) {
       this.props.teamData = [];
@@ -155,7 +153,6 @@ class TeamPage extends React.Component{
         hover
         data={data}
       />);
-    
   }
   render(){
     const { validated } = this.state;
@@ -172,68 +169,71 @@ class TeamPage extends React.Component{
         <div className="panel-main-wrapper">
           <Container className="panel-main-container" fluid={true}>
             <Row>
+              <Col><p className="header black">Event: {this.props.eventName}</p></Col>
+            </Row>
+            <Row>
               <Col lg={7}><p className="header">Team Record</p></Col>
+              <Col lg={5}><p className="header tp">Add Team</p></Col>
             </Row>
             <Row>
               <Col lg={7} className="tp-table-col">
                 {this.showData()}
               </Col>
               <Col lg={5} className="tp-form-col">
-                {/* <div className="position-fixed tp-form-div"> */}
-                  <p className="header tp">Add Team</p>
-                  <Form
-                  noValidate
-                  validated={validated}
-                  className="tp-form"
-                  >
-                    <Form.Row>
-                      <Form.Group as={Col} md="12" controlId="validationCustom01">
-                        <Form.Label>Team name</Form.Label>
-                        <Form.Control
-                          required
-                          type="text"
-                          placeholder="Team name"
-                          onChange={this.onTeamNameChange.bind(this)}
-                        />
-                        <Form.Control.Feedback type="invalid">Please enter a team name.</Form.Control.Feedback>          
-                      </Form.Group>
+                <Form
+                noValidate
+                validated={validated}
+                className="tp-form"
+                >
+                  <Form.Row>
+                    <Form.Group as={Col} md="12" controlId="validationCustom01">
+                      <Form.Label>Team name</Form.Label>
+                      <Form.Control
+                        required
+                        type="text"
+                        placeholder="Team name"
+                        onChange={this.onTeamNameChange.bind(this)}
+                      />
+                      <Form.Control.Feedback type="invalid">Please enter a team name.</Form.Control.Feedback>          
+                    </Form.Group>
 
-                      <Form.Group as={Col} md="12" controlId="validationCustom02">
-                        <Form.Label>App name</Form.Label>
-                        <Form.Control
-                          required
-                          type="text"
-                          placeholder="App name"
-                          onChange={this.onAppNameChange.bind(this)}
-                        />
-                        <Form.Control.Feedback type="invalid">Please enter an app name.</Form.Control.Feedback>          
-                      </Form.Group>
+                    <Form.Group as={Col} md="12" controlId="validationCustom02">
+                      <Form.Label>App name</Form.Label>
+                      <Form.Control
+                        required
+                        type="text"
+                        placeholder="App name"
+                        onChange={this.onAppNameChange.bind(this)}
+                      />
+                      <Form.Control.Feedback type="invalid">Please enter an app name.</Form.Control.Feedback>          
+                    </Form.Group>
 
-                      <Form.Group as={Col} md="12" controlId="validationCustom02">
-                        <Form.Label>School</Form.Label>
-                        <Form.Control
-                          required
-                          type="text"
-                          placeholder="School"
-                          onChange={this.onSchoolChange.bind(this)}
-                        />
-                        <Form.Control.Feedback type="invalid">Please enter a school.</Form.Control.Feedback>          
-                      </Form.Group>
-                      
-                    </Form.Row>
+                    <Form.Group as={Col} md="12" controlId="validationCustom02">
+                      <Form.Label>School</Form.Label>
+                      <Form.Control
+                        required
+                        type="text"
+                        placeholder="School"
+                        onChange={this.onSchoolChange.bind(this)}
+                      />
+                      <Form.Control.Feedback type="invalid">Please enter a school.</Form.Control.Feedback>          
+                    </Form.Group>
+                  </Form.Row>
 
-                    <Form.Row>
-                      <Form.Group as={Col} md="12" controlId="exampleForm.ControlTextarea1">
-                        <Form.Label>Project Description</Form.Label>
-                        <Form.Control required as="textarea" rows="3" placeholder="Project description" onChange={this.onAppDesChange.bind(this)}/>
-                        <Form.Control.Feedback type="invalid">
-                          Please enter an app description.
-                        </Form.Control.Feedback> 
-                      </Form.Group>
-                    </Form.Row>
-                  </Form>
-                  <button className="submitform-btn team" type="button" onClick={e => this.handleSubmit(e)}>Create</button>
-                {/* </div> */}
+                  <Form.Row>
+                    <Form.Group as={Col} md="12" controlId="exampleForm.ControlTextarea1">
+                      <Form.Label>Project Description</Form.Label>
+                      <Form.Control required as="textarea" rows="3" placeholder="Project description" onChange={this.onAppDesChange.bind(this)}/>
+                      <Form.Control.Feedback type="invalid">
+                        Please enter an app description.
+                      </Form.Control.Feedback> 
+                    </Form.Group>
+                  </Form.Row>
+                </Form>
+                <Row>
+                  <Col lg={7}><p className="team-add-feedback">{this.state.addTeamFeedback}</p></Col>
+                  <Col lg={5}><button className="submitform-btn team" type="button" onClick={e => this.handleSubmit(e)}>Create</button></Col>
+                </Row>
               </Col>
             </Row>
           </Container>

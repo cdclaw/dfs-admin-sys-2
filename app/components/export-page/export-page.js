@@ -261,6 +261,9 @@ class ExportPage extends React.Component{
         <div className="panel-main-wrapper">
           <Container className="panel-main-container" fluid={true}>
             <Row>
+              <Col><p className="header black">Event: {this.props.eventName}</p></Col>
+            </Row>
+            <Row>
               <Col>
                 <Row>
                   <Col>

@@ -7,7 +7,6 @@ import PanelFrame from '../menu/panel-frame';
 import Popup from 'reactjs-popup';
 import { MDBDataTable } from 'mdbreact';
 import DatePicker from 'react-datepicker';
-import { moment } from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 
 var JudgeObj = require('../data/judge');
@@ -464,6 +463,7 @@ class Events extends React.Component {
                 </Col>
                 <Col style={{backgroundColor:"#4156a6"}}></Col>
               </Row>
+              {/* <div className="event-footer"></div> */}
             </div>
 
           }
