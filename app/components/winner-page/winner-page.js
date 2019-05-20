@@ -69,8 +69,13 @@ class WinnerPage extends React.Component{
     }
     return winner_list2;
   }
+
   display_winner() {
     var wl = this.get_winner();
+
+    let image_list = ['../assets/1.png','../assets/2.png','../assets/3.png','../assets/4.png','../assets/5.png']
+    count = 0
+
     if (wl.length >= 5) {
       var temp = (
         <div className="winner-table">
@@ -112,6 +117,8 @@ class WinnerPage extends React.Component{
         </div>
       )
       return temp;
+    }else{
+      
     }
     
   }

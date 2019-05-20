@@ -61,8 +61,10 @@ class ExportPage extends React.Component{
   display_nor_data(){
     let table = [];
     let table2 = [];
+
     var teamlist = this.team_list();   
     var judgelist = this.judge_list();
+    
     let first_row = [];
 
     first_row.push(<th>&nbsp;Judges\Teams</th>);
@@ -76,7 +78,6 @@ class ExportPage extends React.Component{
 
     for (var j in judgelist){
       let row = [];
-      let z_list = [];
       row.push(<td>&nbsp;{judgelist[j]}</td>);
       var judge = judgelist[j];
 
@@ -92,31 +93,27 @@ class ExportPage extends React.Component{
         }
       }
 
-      var row_mean = count/parseFloat(count_number);
+      if (count_number == 1){
+        
+      }else{
+        var row_mean = count/parseFloat(count_number);
 
-      var row_std_count = 0;
-      for (var i in rowlist){
-        if (rowlist[i] != 0){
-          row_std_count = row_std_count + (rowlist[i]- row_mean) * (rowlist[i] - row_mean);
+        let row_std_count = 0
+        for (var i in rowlist){
+          if (rowlist[i] != 0){
+            row_std_count = row_std_count + (rowlist[i]- row_mean) * (rowlist[i] - row_mean);
+          }
+        }
+        var row_std = Math.sqrt(row_std_count/(parseFloat(count_number)-1.0));
+        for (var i in rowlist){
+          if (rowlist[i] != 0){
+            z_max_min.push((rowlist[i] - row_mean)/parseFloat(row_std));
+          }
         }
       }
-
-      var row_std = Math.sqrt(row_std_count/(parseFloat(count_number)-1.0));
-
-      for (var i in rowlist){
-        if (rowlist[i] != 0){
-          z_max_min.push((rowlist[i] - row_mean)/parseFloat(row_std));
-          z_list.push( (rowlist[i] - row_mean)/parseFloat(row_std) );
-        }
-        else{
-          z_list.push(0);
-        }
-      }
-
-      for (var i in z_list){
-        row.push(<td>&nbsp;{z_list[i]}</td>);
-      }
+      
     }
+
 
     for (var j in judgelist){
       let row = []; 
@@ -136,41 +133,63 @@ class ExportPage extends React.Component{
         }
       }
 
-      var row_mean = count/parseFloat(count_number);
-
-      var row_std_count = 0;
-      for (var i in rowlist){
-        if (rowlist[i] != 0){
-          row_std_count = row_std_count + (rowlist[i]- row_mean) * (rowlist[i] - row_mean);
+      if (count_number == 1){
+        for (var i in rowlist){
+          if (rowlist[i] != 0){
+            z_list.push(rowlist[i].toFixed(2))
+          }else{
+            z_list.push(0)
+          }
         }
-      }
-
-      var row_std = Math.sqrt(row_std_count/(parseFloat(count_number)));
-
-      var RawMax = raw_max_min.sort().reverse()[0];
-      var RawMin = raw_max_min.sort()[0];
-
-      var ZMax = z_max_min.sort().reverse()[0];
-      var ZMin = z_max_min.sort(function(a,b) { return a - b; })[0];
-
-      for (var i in rowlist){
-        if (rowlist[i] != 0){
-          var z_score = (rowlist[i] - row_mean)/parseFloat(row_std);
-          var rescaled_value = (RawMax+RawMin)/2.0 + (parseFloat((RawMax-RawMin)) / ( (ZMax-ZMin)) * (z_score - (ZMax+ZMin)/2.0) );
-          z_list.push( rescaled_value.toFixed(2) );
+        
+        for (var i in z_list){
+          row.push(<td>&nbsp;{z_list[i]}</td>);
+          row2.push(z_list[i]);
         }
-        else{
-          z_list.push(0);
+  
+        table.push(<tr>{row}</tr>);
+        table2.push(row2);
+
+
+      }else{
+
+        var row_mean = count/parseFloat(count_number);
+
+        var row_std_count = 0;
+        for (var i in rowlist){
+          if (rowlist[i] != 0){
+            row_std_count = row_std_count + (rowlist[i]- row_mean) * (rowlist[i] - row_mean);
+          }
         }
-      }
+        var row_std = Math.sqrt(row_std_count/(parseFloat(count_number)));
 
-      for (var i in z_list){
-        row.push(<td>&nbsp;{z_list[i]}</td>);
-        row2.push(z_list[i]);
-      }
+        var RawMax = raw_max_min.sort().reverse()[0];
+        var RawMin = raw_max_min.sort()[0];
+  
+        var ZMax = z_max_min.sort().reverse()[0];
+        var ZMin = z_max_min.sort(function(a,b) { return a - b; })[0];
 
-      table.push(<tr>{row}</tr>);
-      table2.push(row2);
+        for (var i in rowlist){
+          if (rowlist[i] != 0){
+            var z_score = (rowlist[i] - row_mean)/parseFloat(row_std);
+            var rescaled_value = (RawMax+RawMin)/2.0 + (parseFloat((RawMax-RawMin)) / ( (ZMax-ZMin)) * (z_score - (ZMax+ZMin)/2.0) );
+            z_list.push( rescaled_value.toFixed(2) );
+          }
+          else{
+            z_list.push(0);
+          }
+        }
+
+        for (var i in z_list){
+          row.push(<td>&nbsp;{z_list[i]}</td>);
+          row2.push(z_list[i]);
+        }
+  
+        table.push(<tr>{row}</tr>);
+        table2.push(row2);
+
+      }
+      
 
     }
 
@@ -188,6 +207,7 @@ class ExportPage extends React.Component{
     table.push(row3);
     return table;
   }
+
 
   display_raw_data(){
     let table = [];
@@ -238,7 +258,7 @@ class ExportPage extends React.Component{
         if (winner_dict[j] == tt[i] && count <= 5){
           let row = [];
           row.push(<td>&nbsp;{count+'st'}</td>);
-          row.push(<td>&nbsp;{tt[i]}</td>);
+          row.push(<td>&nbsp;{tt[i].toFixed(2)}</td>);
           row.push(<td>&nbsp;{j}</td>);
           table.push(<tr>{row}</tr>);
           count = count + 1;
@@ -276,7 +296,7 @@ class ExportPage extends React.Component{
                       id="test-table-xls-button"
                       className="table-btn export"
                       table="1"
-                      filename="tablexls"
+                      filename="Raw_data"
                       sheet="tablexls"
                       buttonText="Export raw data to Excel"/>
                     <div className="export-t-div">
@@ -288,7 +308,7 @@ class ExportPage extends React.Component{
                       id="test-table-xls-button"
                       className="table-btn export"
                       table="2"
-                      filename="tablexls"
+                      filename="Normalized_data"
                       sheet="tablexls"
                       buttonText="Export normalized data to Excel"/>
                     <div className="export-t-div">
@@ -300,7 +320,7 @@ class ExportPage extends React.Component{
                       id="test-table-xls-button"
                       className="table-btn export last"
                       table="3"
-                      filename="tablexls"
+                      filename="Winner"
                       sheet="tablexls"
                       buttonText="Export Winner data to Excel"/>
                   </Col>
