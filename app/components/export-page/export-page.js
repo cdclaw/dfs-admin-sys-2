@@ -16,7 +16,7 @@ class ExportPage extends React.Component{
       [stringof]:value
     })
     .then(function() {
-      console.log("Document successfully updated!");
+      
     });
   }
 
@@ -96,7 +96,7 @@ class ExportPage extends React.Component{
       if (count_number == 1){
         
       }else{
-        var row_mean = count/parseFloat(count_number);
+        var row_mean = (count/parseFloat(count_number)).toFixed(2);
 
         let row_std_count = 0
         for (var i in rowlist){
@@ -104,7 +104,8 @@ class ExportPage extends React.Component{
             row_std_count = row_std_count + (rowlist[i]- row_mean) * (rowlist[i] - row_mean);
           }
         }
-        var row_std = Math.sqrt(row_std_count/(parseFloat(count_number)-1.0));
+        var row_std = Math.sqrt(row_std_count/(parseFloat(count_number)-1.0)).toFixed(2);
+
         for (var i in rowlist){
           if (rowlist[i] != 0){
             z_max_min.push((rowlist[i] - row_mean)/parseFloat(row_std));
@@ -161,24 +162,26 @@ class ExportPage extends React.Component{
             row_std_count = row_std_count + (rowlist[i]- row_mean) * (rowlist[i] - row_mean);
           }
         }
-        var row_std = Math.sqrt(row_std_count/(parseFloat(count_number)));
+        var row_std = Math.sqrt(row_std_count/(parseFloat(count_number)-1.0));
 
         var RawMax = raw_max_min.sort().reverse()[0];
         var RawMin = raw_max_min.sort()[0];
   
         var ZMax = z_max_min.sort().reverse()[0];
         var ZMin = z_max_min.sort(function(a,b) { return a - b; })[0];
-
+  
         for (var i in rowlist){
           if (rowlist[i] != 0){
-            var z_score = (rowlist[i] - row_mean)/parseFloat(row_std);
-            var rescaled_value = (RawMax+RawMin)/2.0 + (parseFloat((RawMax-RawMin)) / ( (ZMax-ZMin)) * (z_score - (ZMax+ZMin)/2.0) );
-            z_list.push( rescaled_value.toFixed(2) );
+            var z_score = (rowlist[i] - row_mean)/row_std;
+            var rescaled_value = (RawMax+RawMin)/2.0 + ( (RawMax-RawMin) /  (ZMax-ZMin) ) * (z_score - (ZMax+ZMin)/2.0);
+            z_list.push( rescaled_value );
           }
           else{
             z_list.push(0);
           }
         }
+
+       
 
         for (var i in z_list){
           row.push(<td>&nbsp;{z_list[i]}</td>);

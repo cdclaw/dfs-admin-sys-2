@@ -83,35 +83,35 @@ class WinnerPage extends React.Component{
             <Col sm={2} className="winner-img-col"><div className="winner-img-div"><img className="winner-rank" src={require('../assets/1.png')}></img></div></Col>
             <Col sm={3}><p className="winner-text first">{wl[0][0]}<br></br></p><p className="winner-small">School</p></Col>
             <Col sm={3}><p className="winner-text first">{wl[0][1]}<br></br></p><p className="winner-small">Team</p></Col>
-            <Col sm={3}><p className="winner-text first">{wl[0][2]}<br></br></p><p className="winner-small">App</p></Col>
+            <Col sm={3}><p className="winner-text first">&nbsp;&nbsp;{wl[0][2]}<br></br></p><p className="winner-small">App</p></Col>
             <Col sm={1}><p className="winner-text first">{wl[0][3]}<br></br></p><p className="winner-small">Score</p></Col>
           </Row>
           <Row className="winner-row">
             <Col sm={2} className="winner-img-col"><div className="winner-img-div"><img className="winner-rank" src={require('../assets/2.png')}></img></div></Col>
             <Col sm={3}><p className="winner-text second">{wl[1][0]}<br></br></p><p className="winner-small">School</p></Col>
             <Col sm={3}><p className="winner-text second">{wl[1][1]}<br></br></p><p className="winner-small">Team</p></Col>
-            <Col sm={3}><p className="winner-text second">{wl[1][2]}<br></br></p><p className="winner-small">App</p></Col>
+            <Col sm={3}><p className="winner-text second">&nbsp;&nbsp;{wl[1][2]}<br></br></p><p className="winner-small">App</p></Col>
             <Col sm={1}><p className="winner-text second">{wl[1][3]}<br></br></p><p className="winner-small">Score</p></Col>
           </Row>
           <Row className="winner-row">
             <Col sm={2} className="winner-img-col"><div className="winner-img-div"><img className="winner-rank" src={require('../assets/3.png')}></img></div></Col>
             <Col sm={3}><p className="winner-text third">{wl[2][0]}<br></br></p><p className="winner-small">School</p></Col>
             <Col sm={3}><p className="winner-text third">{wl[2][1]}<br></br></p><p className="winner-small">Team</p></Col>
-            <Col sm={3}><p className="winner-text third">{wl[2][2]}<br></br></p><p className="winner-small">App</p></Col>
+            <Col sm={3}><p className="winner-text third">&nbsp;&nbsp;{wl[2][2]}<br></br></p><p className="winner-small">App</p></Col>
             <Col sm={1}><p className="winner-text third">{wl[2][3]}<br></br></p><p className="winner-small">Score</p></Col>
           </Row>
           <Row className="winner-row">
             <Col sm={2} className="winner-img-col"><div className="winner-img-div"><img className="winner-rank rest" src={require('../assets/4.png')}></img></div></Col>
             <Col sm={3}><p className="winner-text rest">{wl[3][0]}<br></br></p><p className="winner-small">School</p></Col>
             <Col sm={3}><p className="winner-text rest">{wl[3][1]}<br></br></p><p className="winner-small">Team</p></Col>
-            <Col sm={3}><p className="winner-text rest">{wl[3][2]}<br></br></p><p className="winner-small">App</p></Col>
+            <Col sm={3}><p className="winner-text rest">&nbsp;&nbsp;{wl[3][2]}<br></br></p><p className="winner-small">App</p></Col>
             <Col sm={1}><p className="winner-text rest">{wl[3][3]}<br></br></p><p className="winner-small">Score</p></Col>
           </Row>
           <Row className="winner-row">
             <Col sm={2} className="winner-img-col"><div className="winner-img-div"><img className="winner-rank rest" src={require('../assets/5.png')}></img></div></Col>
             <Col sm={3}><p className="winner-text rest">{wl[4][0]}<br></br></p><p className="winner-small">School</p></Col>
             <Col sm={3}><p className="winner-text rest">{wl[4][1]}<br></br></p><p className="winner-small">Team</p></Col>
-            <Col sm={3}><p className="winner-text rest">{wl[4][2]}<br></br></p><p className="winner-small">App</p></Col>
+            <Col sm={3}><p className="winner-text rest">&nbsp;&nbsp;{wl[4][2]}<br></br></p><p className="winner-small">App</p></Col>
             <Col sm={1}><p className="winner-text rest">{wl[4][3]}<br></br></p><p className="winner-small">Score</p></Col>
           </Row>
         </div>
