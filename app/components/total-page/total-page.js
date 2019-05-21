@@ -33,7 +33,7 @@ class TotalPage extends React.Component{
       var name = this.props.teamData[x].teamName;
       var temp = 
         <Card>
-          <Card.Title><div className="assign-card-title total">{this.props.teamData[x].teamName + "‘s Total Socre"}</div></Card.Title>
+          <Card.Title><div className="assign-card-title total">{this.props.teamData[x].teamName + "‘s Total Score"}</div></Card.Title>
           <Card.Body>
             <Card.Text>
             <Table borderd hover responsive>
