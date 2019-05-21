@@ -52,7 +52,7 @@ class ExportPage extends React.Component{
         }
       }
       if (check.length==0){
-        row_info.push(0);
+        row_info.push("-");
       }
     }
     return row_info;
@@ -86,7 +86,7 @@ class ExportPage extends React.Component{
       var count = 0;
       var count_number = 0;
       for (var i in rowlist){
-        if (rowlist[i] != 0){
+        if (rowlist[i] !== "-"){
           raw_max_min.push(rowlist[i]);
           count_number = count_number + 1;
           count = count + rowlist[i];
@@ -100,14 +100,14 @@ class ExportPage extends React.Component{
 
         let row_std_count = 0
         for (var i in rowlist){
-          if (rowlist[i] != 0){
+          if (rowlist[i] !== "-"){
             row_std_count = row_std_count + (rowlist[i]- row_mean) * (rowlist[i] - row_mean);
           }
         }
         var row_std = Math.sqrt(row_std_count/(parseFloat(count_number)-1.0)).toFixed(2);
 
         for (var i in rowlist){
-          if (rowlist[i] != 0){
+          if (rowlist[i] !== "-"){
             z_max_min.push((rowlist[i] - row_mean)/parseFloat(row_std));
           }
         }
@@ -128,7 +128,7 @@ class ExportPage extends React.Component{
       var count = 0;
       var count_number = 0;
       for (var i in rowlist){
-        if (rowlist[i] != 0){
+        if (rowlist[i] !== "-"){
           count_number = count_number + 1;
           count = count + rowlist[i];
         }
@@ -136,7 +136,7 @@ class ExportPage extends React.Component{
 
       if (count_number == 1){
         for (var i in rowlist){
-          if (rowlist[i] != 0){
+          if (rowlist[i] !== "-"){
             z_list.push(rowlist[i].toFixed(2))
           }else{
             z_list.push(0)
@@ -158,7 +158,7 @@ class ExportPage extends React.Component{
 
         var row_std_count = 0;
         for (var i in rowlist){
-          if (rowlist[i] != 0){
+          if (rowlist[i] !== "-"){
             row_std_count = row_std_count + (rowlist[i]- row_mean) * (rowlist[i] - row_mean);
           }
         }
@@ -171,7 +171,7 @@ class ExportPage extends React.Component{
         var ZMin = z_max_min.sort(function(a,b) { return a - b; })[0];
   
         for (var i in rowlist){
-          if (rowlist[i] != 0){
+          if (rowlist[i] !== "-"){
             var z_score = (rowlist[i] - row_mean)/row_std;
             var rescaled_value = (RawMax+RawMin)/2.0 + ( (RawMax-RawMin) /  (ZMax-ZMin) ) * (z_score - (ZMax+ZMin)/2.0);
             z_list.push( rescaled_value );
