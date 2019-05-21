@@ -47,14 +47,25 @@ class AssignPage extends React.Component{
       }
       teamjudgeMap.set(this.props.teamData[x].teamName, judges)
     }
-    this.setState({teamjudgemap: teamjudgeMap})
+    this.setState({teamjudgemap: teamjudgeMap});
+    var schoolteamMap = new Map()
+    for (var x in this.props.teamData){
+      if (schoolteamMap.has(this.props.teamData[x].school)){
+          var currentteams = schoolteamMap.get(this.props.teamData[x].school)
+          currentteams.push(this.props.teamData[x].teamName)
+          schoolteamMap.set(this.props.teamData[x].school, currentteams)
+      }else{
+        var teams = []
+        teams.push(this.props.teamData[x].teamName)
+        schoolteamMap.set(this.props.teamData[x].school, teams)
+      }
+    }
+    this.setState({schoolteammap: schoolteamMap})
   }
 
   displaybyJudge(){
     //TODO: need to prevent users from choosing exiested teams 
-    
     var judgeList = [];
-    
     for (var [k,v] of this.state.judgeteammap.entries()){
         var temp = 
           <Card>
@@ -269,7 +280,6 @@ class AssignPage extends React.Component{
       schoolteamMap.set(this.props.teamData[x].school, teams)
     }
     for(var x in this.props.teamData){
-      console.log("schoolname",this.props.teamData[x].school)
       if ([...schoolteamMap.keys()].includes(this.props.teamData[x].school)){
         var currentteams = schoolteamMap.get(this.props.teamData[x].school)
         currentteams.push(this.props.teamData[x].teamName)
@@ -298,18 +308,25 @@ class AssignPage extends React.Component{
       } 
     }
     var output = this.algorithm(judges, teams);
-    console.log("biubiubiu: ", output);
-    for (var i = 0; i < output.length - 1; i++){
+    for (var i = 0; i < output.length; i++){
       teams = judgeteamMap.get(output[i][0])
       teams.push(output[i][1])
     }
-    for (var i = 0; i < output.length - 1; i++){
+    for (var i = 0; i < output.length; i++){
       judges = teamjudgeMap.get(output[i][1])
       judges.push(output[i][0])
     }
-    this.setState({judgeteammap: judgeteamMap},()=>{console.log(this.state.teamjudgemap);this.autoAssignjSave()})
+    this.setState({judgeteammap: judgeteamMap},()=>
+      {
+        console.log(this.state.teamjudgemap);
+        // this.autoAssignjSave();
+      })
     //this.setState({schoolteammap: schoolteamMap})
-    this.setState({teamjudgemap: teamjudgeMap},()=>{console.log(this.state.teamjudgemap);this.autoAssigntSave()})
+    this.setState({teamjudgemap: teamjudgeMap},()=>
+      {
+        console.log(this.state.teamjudgemap);
+        // this.autoAssigntSave();
+      })
   }
   // Auto assign algorithm
   algorithm(judge, team){
