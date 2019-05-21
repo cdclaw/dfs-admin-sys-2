@@ -74,7 +74,7 @@ class WinnerPage extends React.Component{
     var wl = this.get_winner();
 
     let image_list = ['../assets/1.png','../assets/2.png','../assets/3.png','../assets/4.png','../assets/5.png']
-    count = 0
+    let count = 0
 
     if (wl.length >= 5) {
       var temp = (
