@@ -12,6 +12,7 @@ import ExportPage from '../export-page/export-page';
 class PanelFrame extends React.Component{
   constructor(props){
     super(props);
+    console.log("data: ", this.props.teamData, this.props.teamData2, this.props.judgeData)
   }
 
   render(){

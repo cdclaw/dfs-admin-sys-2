@@ -16,7 +16,7 @@ class ExportPage extends React.Component{
       [stringof]:value
     })
     .then(function() {
-      
+      console.log("nor score updated successfully!")
     });
   }
 
@@ -68,7 +68,7 @@ class ExportPage extends React.Component{
     let first_row = [];
 
     first_row.push(<th>&nbsp;Judges\Teams</th>);
-    for (var i in teamlist){
+    for (var i in teamlist) {
       first_row.push(<th>&nbsp;{teamlist[i]}</th>);
     }
     table.push(<tr>{first_row}</tr>);
@@ -181,8 +181,6 @@ class ExportPage extends React.Component{
           }
         }
 
-       
-
         for (var i in z_list){
           row.push(<td>&nbsp;{z_list[i]}</td>);
           row2.push(z_list[i]);
@@ -198,7 +196,8 @@ class ExportPage extends React.Component{
 
     let row3 = [];
     row3.push(<td>&nbsp;Total Score</td>);
-    for (var i in teamlist){
+    console.log("teamlist: ", teamlist)
+    for (var i in teamlist) {
       var total_count = 0;
       for (var j in table2){
         total_count = total_count + parseFloat(table2[j][i]);
