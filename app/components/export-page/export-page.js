@@ -10,14 +10,27 @@ class ExportPage extends React.Component{
     this.db = fire.firestore();
   }
 
-  update_database(name, value){
-    var stringof = name + ".totalNorScore";
-    this.db.collection(this.props.eventName).doc("teams").update({
-      [stringof]:value
-    })
-    .then(function() {
+  update_database(name, value) {
+    var teamRef = this.db.collection(this.props.eventName).doc("teams");
+    teamRef.get().then(function (doc) {
+      if (doc.exist) {
+        for (var x in doc.data()) {
+          if (x.teamName == name) {
+            x.totalNorScore = value;
+
+          }
+        }
+      }
+    }).then(function () {
       console.log("nor score updated successfully!")
     });
+    // var stringof = name + ".totalNorScore";
+    // this.db.collection(this.props.eventName).doc("teams").update({
+    //   [stringof]:value
+    // })
+    // .then(function() {
+    //   console.log("nor score updated successfully!")
+    // });
   }
 
   onLogout(e){
@@ -196,7 +209,6 @@ class ExportPage extends React.Component{
 
     let row3 = [];
     row3.push(<td>&nbsp;Total Score</td>);
-    console.log("teamlist: ", teamlist)
     for (var i in teamlist) {
       var total_count = 0;
       for (var j in table2){
