@@ -37,6 +37,9 @@ class JudgePage extends React.Component{
     }
     return retVal;
   }
+  deletePscores() {
+    
+  }
   onLogout(e){
     fire.auth().signOut();
   }
