@@ -44,6 +44,7 @@ class Events extends React.Component {
     this.db = fire.firestore();
     this.openModalHandler = this.openModalHandler.bind(this);
     this.closeModalHandler = this.closeModalHandler.bind(this);
+    this.onEventSubmit = this.onEventSubmit.bind(this);
     //this.handleDateChange = this.handleDateChange.bind(this);
   }
 
@@ -125,6 +126,8 @@ class Events extends React.Component {
         });
         return eventL;
       }).then(eventL => {
+        console.log(eventL)
+
         this.setState({ events: eventL });
       })
       .catch(function (error) {
@@ -170,10 +173,10 @@ class Events extends React.Component {
   }
 
   onEventSubmit(event) {
-    var onEventSubmitDebug = false;
+    var onEventSubmitDebug = true;
     if (onEventSubmitDebug) {
        console.log('onEventSubmit() called');
-    }
+    };
 
     const form = event.currentTarget;
     if (form.checkValidity() === false || this.state.eventName=="" || this.state.startDateString=="") {
@@ -191,23 +194,41 @@ class Events extends React.Component {
         eventName: this.state.eventName,
         eventDate: this.state.startDateString,
         event: true
-      });
+      }).then(function () {
+        console.log("Document successfully written!");
+      })
+        .catch(function (error) {
+          console.error("Error writing document: ", error);
+        });
+      
       // Initialize the collection
       var eventTeamRef = this.db.collection(this.state.eventName).doc("teams");
       eventTeamRef.set({
         irrelevant: 1
-      });
+      }).then(function () {
+        console.log("irrelevant in teams successfully written!");
+      })
+        .catch(function (error) {
+          console.error("Error writing document: ", error);
+        });
+
       var eventJudgeRef = this.db.collection(this.state.eventName).doc("judges");
       eventJudgeRef.set({
         irrelevant: 1
-      });
+      }).then(function () {
+        console.log("irrelevant in judges successfully written!");
+      })
+        .catch(function (error) {
+          console.error("Error writing document: ", error);
+        });
+
     }
     this.setState({ validated: true });
     this.state.showForm = false;
 
     if (onEventSubmitDebug) {
       console.log('showPopup at end of onEventSubmit(): ', this.state.showPopup);
-    }
+    };
   }
 
   showEventsTable(){
@@ -289,17 +310,17 @@ class Events extends React.Component {
     this.setState({ events: copyData });
     // Delete event frome firebase
     this.db.collection("events").doc(eventName).delete().then(function () {
-      console.log("Document successfully deleted!");
+      console.log("event in events collection successfully deleted");
     }).catch(function (error) {
       console.error("Error removing document: ", error);
     });
     this.db.collection("eventName").doc("teams").delete().then(function () {
-      console.log("Document successfully deleted!");
+      console.log("event's teams successfully deleted!");
     }).catch(function (error) {
       console.error("Error removing document: ", error);
     });
     this.db.collection("eventName").doc("judges").delete().then(function () {
-      console.log("Document successfully deleted!");
+      console.log("event's judges successfully deleted!");
     }).catch(function (error) {
       console.error("Error removing document: ", error);
     });
@@ -385,7 +406,8 @@ class Events extends React.Component {
                   <Form.Row>
                     <Col></Col>
                     <Col>
-                      <button className="events-modal-button" 
+                        <button className="events-modal-button" 
+                              type="button"
                               onClick={(e) => this.onEventSubmit(e)}
                               style={{backgroundColor:"#d9dded", color: "#4156a6", marginTop: '20px'}}
                               >
