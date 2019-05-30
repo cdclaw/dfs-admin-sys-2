@@ -126,8 +126,6 @@ class Events extends React.Component {
         });
         return eventL;
       }).then(eventL => {
-        console.log(eventL)
-
         this.setState({ events: eventL });
       })
       .catch(function (error) {
@@ -314,12 +312,12 @@ class Events extends React.Component {
     }).catch(function (error) {
       console.error("Error removing document: ", error);
     });
-    this.db.collection("eventName").doc("teams").delete().then(function () {
+    this.db.collection(eventName).doc("teams").delete().then(function () {
       console.log("event's teams successfully deleted!");
     }).catch(function (error) {
       console.error("Error removing document: ", error);
     });
-    this.db.collection("eventName").doc("judges").delete().then(function () {
+    this.db.collection(eventName).doc("judges").delete().then(function () {
       console.log("event's judges successfully deleted!");
     }).catch(function (error) {
       console.error("Error removing document: ", error);

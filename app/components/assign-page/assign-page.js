@@ -373,14 +373,14 @@ class AssignPage extends React.Component{
           if (this.props.judgeData[i].name == judges[j]){
             temp[this.props.judgeData[i].name]={
               judgeName: this.props.judgeData[i].name,
-              dscore1:null,
-              dscore2:null,
-              fscore1:null,
-              fscore2:null,
-              tscore1:null,
-              tscore2:null,
-              pscore1:null,
-              totalScore:null
+              dscore1:0,
+              dscore2:0,
+              fscore1:0,
+              fscore2:0,
+              tscore1:0,
+              tscore2:0,
+              pscore1:0,
+              totalScore:0
             }
           }
         }
@@ -447,14 +447,14 @@ class AssignPage extends React.Component{
           if (this.state.addteamsjudge[team][j]  == this.props.judgeData[i].name){
             var temp = {
               judgeName: this.props.judgeData[i].name,
-              dscore1 : null,
-              dscore2 : null,
-              fscore1 : null,
-              fscore2 : null,
-              tscore1 : null,
-              tscore2 : null,
-              pscore1 : null,
-              totalScore : null,
+              dscore1 : 0,
+              dscore2 : 0,
+              fscore1 : 0,
+              fscore2 : 0,
+              tscore1 : 0,
+              tscore2 : 0,
+              pscore1 : 0,
+              totalScore : 0,
             }
             teamRef.update({
               [stringof] : temp

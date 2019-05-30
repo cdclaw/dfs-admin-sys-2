@@ -74,6 +74,7 @@ class JudgePage extends React.Component{
         console.log(error.message);
         this.setState({authErrorMsg: error.message});
       });
+      
       //Add judges data into firebase database
       var data = {};
       var judge = {
