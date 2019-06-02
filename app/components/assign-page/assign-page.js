@@ -280,18 +280,21 @@ class AssignPage extends React.Component{
     this.setState({judgeteammap: judgeteamMap},()=>
       {
         console.log(this.state.teamjudgemap);
-        // this.autoAssignjSave();
+        this.autoAssignjSave();
       })
     //this.setState({schoolteammap: schoolteamMap})
     this.setState({teamjudgemap: teamjudgeMap},()=>
       {
         console.log(this.state.teamjudgemap);
-        // this.autoAssigntSave();
+        this.autoAssigntSave();
       })
   }
   // Auto assign algorithm
   algorithm(judge, team){
-    var n = Math.ceil(team.length/judge.length);
+    var n = Math.ceil(team.length / judge.length);
+    if ( n > judge.length) {
+      n = judge.length
+    }
     console.log("n: ", n);
     var x = 0;
     var output = [];
@@ -360,7 +363,7 @@ class AssignPage extends React.Component{
       judgeRef.update({
         [stringOf]: temp
       }).then(function (){
-        console.log("Judge successfully updated!llll");
+        console.log("Judge successfully updated!");
       });
     }    
   }

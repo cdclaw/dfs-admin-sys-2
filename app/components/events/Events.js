@@ -37,7 +37,8 @@ class Events extends React.Component {
       startDate: new Date(),
       startDateString: '',
       isShowing: false,
-      createRepeatErr: ""
+      createRepeatErr: "",
+      presentationScore: null
     }
 
     // this.state.startDate = null;
@@ -45,6 +46,7 @@ class Events extends React.Component {
     this.openModalHandler = this.openModalHandler.bind(this);
     this.closeModalHandler = this.closeModalHandler.bind(this);
     this.onEventSubmit = this.onEventSubmit.bind(this);
+    this.getPresentationData = this.getPresentationData.bind(this);
     //this.handleDateChange = this.handleDateChange.bind(this);
   }
 
@@ -88,6 +90,37 @@ class Events extends React.Component {
       .catch(function (error) {
         console.log("Error getting document:", error);
       });
+  }
+  // 
+  getPresentationData(name) {
+    var teamRef = this.db.collection(name).doc("teams");
+    teamRef.get().then(function (doc) {
+      if (doc.exists){
+        let presentationScore = {};
+        for (var x in doc.data()) {
+          if (x != "irrelevant") {
+            if (doc.data()[x].presentationScores != null) {
+              presentationScore[doc.data()[x].teamName] = [];
+              for (const [judgeName, score] of Object.entries(doc.data()[x].presentationScores)) {
+                if (judgeName != "meanScore") {
+                  presentationScore[doc.data()[x].teamName].push([judgeName, score]);
+                }
+              }
+            } else {
+            }
+            
+          } else {
+          }
+        }
+        return presentationScore;
+      }else{
+        console.log("No such document.")
+      }
+    }).then(presentationScore => {
+      this.setState({ presentationScore: presentationScore });
+    }).catch(function (error) {
+      console.log("Error getting document:", error);
+    });
   }
   // Use the event name passed in to get the judge data under that event
   getJudgeData(name) {
@@ -136,7 +169,6 @@ class Events extends React.Component {
   componentDidMount() {
     this.getEventData();
   }
-
 
   onNameChange(e) {
     for (let x = 0; x < this.state.events.length; x++){
@@ -299,6 +331,7 @@ class Events extends React.Component {
     this.setState({ chosenEvent: eventName });
     this.getTeamData(eventName);
     this.getJudgeData(eventName);
+    this.getPresentationData(eventName);
   }
 
   onDeleteEvent(x, eventName) {
@@ -487,8 +520,8 @@ class Events extends React.Component {
             </div>
 
           }
-          {this.state.chosenEvent && this.state.teamData && this.state.judgeData && this.state.teamData2 && 
-            <PanelFrame eventName={this.state.chosenEvent} teamData={this.state.teamData} teamData2={this.state.teamData2} judgeData={this.state.judgeData}></PanelFrame>
+          {this.state.chosenEvent && this.state.teamData && this.state.judgeData && this.state.teamData2 && this.state.presentationScore &&
+            <PanelFrame eventName={this.state.chosenEvent} teamData={this.state.teamData} teamData2={this.state.teamData2} judgeData={this.state.judgeData} presentationScore={this.state.presentationScore}></PanelFrame>
           }
         </Container> 
     );

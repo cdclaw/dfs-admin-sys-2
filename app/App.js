@@ -7,10 +7,7 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      user: {},
-      judgeData: null,
-      teamData: null,
-      teamDate2: null
+      user: {}
     }
     this.db = fire.firestore();
   }

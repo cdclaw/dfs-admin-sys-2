@@ -7,6 +7,7 @@ import AssignPage from '../assign-page/assign-page';
 import TotalPage from '../total-page/total-page';
 import WinnerPage from '../winner-page/winner-page';
 import ExportPage from '../export-page/export-page';
+import PresentationPage from '../presentation-page/presentation-page';
 
 
 class PanelFrame extends React.Component{
@@ -32,6 +33,7 @@ class PanelFrame extends React.Component{
                 <Nav.Link eventKey="TotalScore">Total Score</Nav.Link>
                 <Nav.Link eventKey="Export">Export</Nav.Link>
                 <Nav.Link eventKey="Winner">Winner</Nav.Link>
+                <Nav.Link eventKey="Presentation">Presentation</Nav.Link>
               </Nav.Item>
             </Nav>
           </Col>
@@ -44,6 +46,7 @@ class PanelFrame extends React.Component{
               <Tab.Pane eventKey="TotalScore"><TotalPage eventName={this.props.eventName}judgeData={this.props.judgeData} teamData={this.props.teamData} teamData2={this.props.teamData2}></TotalPage></Tab.Pane>
               <Tab.Pane eventKey="Export"><ExportPage eventName={this.props.eventName}judgeData={this.props.judgeData} teamData={this.props.teamData} teamData2={this.props.teamData2}></ExportPage></Tab.Pane>
               <Tab.Pane eventKey="Winner"><WinnerPage eventName={this.props.eventName} judgeData={this.props.judgeData} teamData={this.props.teamData} teamData2={this.props.teamData2}></WinnerPage></Tab.Pane>
+              <Tab.Pane eventKey="Presentation"><PresentationPage eventName={this.props.eventName} judgeData={this.props.judgeData} teamData={this.props.teamData} presentationScore={this.props.presentationScore}></PresentationPage></Tab.Pane>
             </Tab.Content>
           </Col>
         </Row>
