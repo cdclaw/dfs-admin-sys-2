@@ -103,10 +103,6 @@ class ExportPage extends React.Component{
         }
         var row_std = Math.sqrt(row_std_count/(parseFloat(count_number)-1.0)).toFixed(2);
 
-        console.log("what is row mean: ", row_mean)
-
-        console.log("what is row_std: ", row_std)
-
         for (var i in rowlist){
           if (rowlist[i] !== "-"){
             z_max_min.push((rowlist[i] - row_mean)/parseFloat(row_std));
