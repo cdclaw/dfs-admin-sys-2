@@ -45,7 +45,6 @@ class TotalPage extends React.Component{
                   <th>Functionality 2</th>
                   <th>Theme 1</th>
                   <th>Theme 2</th>
-                  <th>Presentation</th>
                   <th>Total</th>
                 </tr>
               </thead>
@@ -76,7 +75,6 @@ class TotalPage extends React.Component{
                 <td>{this.props.teamData2[i].scores[j].fscore2}</td>
                 <td>{this.props.teamData2[i].scores[j].tscore1}</td>
                 <td>{this.props.teamData2[i].scores[j].tscore2}</td>
-                <td>{this.props.teamData2[i].scores[j].pscore1}</td>
                 <td>{this.props.teamData2[i].scores[j].totalScore}</td>
               </tr>
             </tbody>
@@ -98,27 +96,6 @@ class TotalPage extends React.Component{
     return teamList;
   }
 
-  create_table(){
-    var i = 
-      <table id="table-to-xls">
-        <tr>
-          <th>Firstname</th>
-          <th>Lastname</th>
-          <th>Age</th>
-        </tr>
-        <tr>
-          <td>Jill</td>
-          <td>Smith</td>
-          <td>50</td>
-        </tr>
-        <tr>
-          <td>Eve</td>
-          <td>Jackson</td>
-          <td>94</td>
-        </tr>
-      </table>
-    return "table-to-xls";
-  }
 
   render(){
     return(
