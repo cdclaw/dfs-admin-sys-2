@@ -102,6 +102,10 @@ class ExportPage extends React.Component{
           }
         }
         var row_std = Math.sqrt(row_std_count/(parseFloat(count_number)-1.0)).toFixed(2);
+        if (row_std == 0.00){
+          row_std = 1.00
+        }
+        
 
         for (var i in rowlist){
           if (rowlist[i] !== "-"){
@@ -159,22 +163,41 @@ class ExportPage extends React.Component{
         }
         var row_std = Math.sqrt(row_std_count/(parseFloat(count_number)-1.0));
 
+        if (row_std == 0.00){
+          row_std = 1.00
+        }
+
+        
+
         var RawMax = raw_max_min.sort().reverse()[0];
         var RawMin = raw_max_min.sort()[0];
   
         var ZMax = z_max_min.sort().reverse()[0];
         var ZMin = z_max_min.sort(function(a,b) { return a - b; })[0];
-  
-        for (var i in rowlist){
-          if (rowlist[i] !== "-"){
-            var z_score = (rowlist[i] - row_mean)/row_std;
-            var rescaled_value = (RawMax+RawMin)/2.0 + ( (RawMax-RawMin) /  (ZMax-ZMin) ) * (z_score - (ZMax+ZMin)/2.0);
-            z_list.push( rescaled_value );
+        
+        if (ZMax == ZMin){
+          for (var i in rowlist){
+            if (rowlist[i] !== "-"){
+              z_list.push(rowlist[i])
+            }
+            else{
+              z_list.push(0)
+            }
           }
-          else{
-            z_list.push(0);
+        }else{
+          for (var i in rowlist){
+            if (rowlist[i] !== "-"){
+              var z_score = (rowlist[i] - row_mean)/row_std;
+              var rescaled_value = (RawMax+RawMin)/2.0 + ( (RawMax-RawMin) /  (ZMax-ZMin) ) * (z_score - (ZMax+ZMin)/2.0);
+              z_list.push( rescaled_value );
+            }
+            else{
+              z_list.push(0);
+            }
           }
         }
+  
+        
 
         for (var i in z_list){
           row.push(<td>&nbsp;{z_list[i]}</td>);
