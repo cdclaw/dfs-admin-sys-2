@@ -37,13 +37,16 @@ class Events extends React.Component {
       startDate: new Date(),
       startDateString: '',
       isShowing: false,
-      createRepeatErr: ""
+      createRepeatErr: "",
+      presentationScore: null
     }
 
     // this.state.startDate = null;
     this.db = fire.firestore();
     this.openModalHandler = this.openModalHandler.bind(this);
     this.closeModalHandler = this.closeModalHandler.bind(this);
+    this.onEventSubmit = this.onEventSubmit.bind(this);
+    this.getPresentationData = this.getPresentationData.bind(this);
     //this.handleDateChange = this.handleDateChange.bind(this);
   }
 
@@ -87,6 +90,37 @@ class Events extends React.Component {
       .catch(function (error) {
         console.log("Error getting document:", error);
       });
+  }
+  // 
+  getPresentationData(name) {
+    var teamRef = this.db.collection(name).doc("teams");
+    teamRef.get().then(function (doc) {
+      if (doc.exists){
+        let presentationScore = {};
+        for (var x in doc.data()) {
+          if (x != "irrelevant") {
+            if (doc.data()[x].presentationScores != null) {
+              presentationScore[doc.data()[x].teamName] = [];
+              for (const [judgeName, score] of Object.entries(doc.data()[x].presentationScores)) {
+                if (judgeName != "meanScore") {
+                  presentationScore[doc.data()[x].teamName].push([judgeName, score]);
+                }
+              }
+            } else {
+            }
+            
+          } else {
+          }
+        }
+        return presentationScore;
+      }else{
+        console.log("No such document.")
+      }
+    }).then(presentationScore => {
+      this.setState({ presentationScore: presentationScore });
+    }).catch(function (error) {
+      console.log("Error getting document:", error);
+    });
   }
   // Use the event name passed in to get the judge data under that event
   getJudgeData(name) {
@@ -136,7 +170,6 @@ class Events extends React.Component {
     this.getEventData();
   }
 
-
   onNameChange(e) {
     for (let x = 0; x < this.state.events.length; x++){
       if (this.state.events[x][0] == e.target.value){
@@ -170,10 +203,10 @@ class Events extends React.Component {
   }
 
   onEventSubmit(event) {
-    var onEventSubmitDebug = false;
+    var onEventSubmitDebug = true;
     if (onEventSubmitDebug) {
        console.log('onEventSubmit() called');
-    }
+    };
 
     const form = event.currentTarget;
     if (form.checkValidity() === false || this.state.eventName=="" || this.state.startDateString=="") {
@@ -191,23 +224,41 @@ class Events extends React.Component {
         eventName: this.state.eventName,
         eventDate: this.state.startDateString,
         event: true
-      });
+      }).then(function () {
+        console.log("Document successfully written!");
+      })
+        .catch(function (error) {
+          console.error("Error writing document: ", error);
+        });
+      
       // Initialize the collection
       var eventTeamRef = this.db.collection(this.state.eventName).doc("teams");
       eventTeamRef.set({
         irrelevant: 1
-      });
+      }).then(function () {
+        console.log("irrelevant in teams successfully written!");
+      })
+        .catch(function (error) {
+          console.error("Error writing document: ", error);
+        });
+
       var eventJudgeRef = this.db.collection(this.state.eventName).doc("judges");
       eventJudgeRef.set({
         irrelevant: 1
-      });
+      }).then(function () {
+        console.log("irrelevant in judges successfully written!");
+      })
+        .catch(function (error) {
+          console.error("Error writing document: ", error);
+        });
+
     }
     this.setState({ validated: true });
     this.state.showForm = false;
 
     if (onEventSubmitDebug) {
       console.log('showPopup at end of onEventSubmit(): ', this.state.showPopup);
-    }
+    };
   }
 
   showEventsTable(){
@@ -280,6 +331,7 @@ class Events extends React.Component {
     this.setState({ chosenEvent: eventName });
     this.getTeamData(eventName);
     this.getJudgeData(eventName);
+    this.getPresentationData(eventName);
   }
 
   onDeleteEvent(x, eventName) {
@@ -289,17 +341,17 @@ class Events extends React.Component {
     this.setState({ events: copyData });
     // Delete event frome firebase
     this.db.collection("events").doc(eventName).delete().then(function () {
-      console.log("Document successfully deleted!");
+      console.log("event in events collection successfully deleted");
     }).catch(function (error) {
       console.error("Error removing document: ", error);
     });
-    this.db.collection("eventName").doc("teams").delete().then(function () {
-      console.log("Document successfully deleted!");
+    this.db.collection(eventName).doc("teams").delete().then(function () {
+      console.log("event's teams successfully deleted!");
     }).catch(function (error) {
       console.error("Error removing document: ", error);
     });
-    this.db.collection("eventName").doc("judges").delete().then(function () {
-      console.log("Document successfully deleted!");
+    this.db.collection(eventName).doc("judges").delete().then(function () {
+      console.log("event's judges successfully deleted!");
     }).catch(function (error) {
       console.error("Error removing document: ", error);
     });
@@ -385,7 +437,8 @@ class Events extends React.Component {
                   <Form.Row>
                     <Col></Col>
                     <Col>
-                      <button className="events-modal-button" 
+                        <button className="events-modal-button" 
+                              type="button"
                               onClick={(e) => this.onEventSubmit(e)}
                               style={{backgroundColor:"#d9dded", color: "#4156a6", marginTop: '20px'}}
                               >
@@ -467,8 +520,8 @@ class Events extends React.Component {
             </div>
 
           }
-          {this.state.chosenEvent && this.state.teamData && this.state.judgeData && this.state.teamData2 && 
-            <PanelFrame eventName={this.state.chosenEvent} teamData={this.state.teamData} teamData2={this.state.teamData2} judgeData={this.state.judgeData}></PanelFrame>
+          {this.state.chosenEvent && this.state.teamData && this.state.judgeData && this.state.teamData2 && this.state.presentationScore &&
+            <PanelFrame eventName={this.state.chosenEvent} teamData={this.state.teamData} teamData2={this.state.teamData2} judgeData={this.state.judgeData} presentationScore={this.state.presentationScore}></PanelFrame>
           }
         </Container> 
     );

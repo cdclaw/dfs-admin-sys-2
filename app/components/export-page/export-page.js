@@ -10,13 +10,13 @@ class ExportPage extends React.Component{
     this.db = fire.firestore();
   }
 
-  update_database(name, value){
+  update_database(name, value) {
     var stringof = name + ".totalNorScore";
     this.db.collection(this.props.eventName).doc("teams").update({
       [stringof]:value
     })
     .then(function() {
-      
+      console.log("nor score updated successfully!")
     });
   }
 
@@ -61,14 +61,11 @@ class ExportPage extends React.Component{
   display_nor_data(){
     let table = [];
     let table2 = [];
-
     var teamlist = this.team_list();   
     var judgelist = this.judge_list();
-    
     let first_row = [];
-
     first_row.push(<th>&nbsp;Judges\Teams</th>);
-    for (var i in teamlist){
+    for (var i in teamlist) {
       first_row.push(<th>&nbsp;{teamlist[i]}</th>);
     }
     table.push(<tr>{first_row}</tr>);
@@ -151,11 +148,9 @@ class ExportPage extends React.Component{
           row.push(<td>&nbsp;{z_list[i]}</td>);
           row2.push(z_list[i]);
         }
-  
+
         table.push(<tr>{row}</tr>);
         table2.push(row2);
-
-
       }else{
 
         var row_mean = count/parseFloat(count_number);
@@ -185,8 +180,6 @@ class ExportPage extends React.Component{
           }
         }
 
-       
-
         for (var i in z_list){
           row.push(<td>&nbsp;{z_list[i]}</td>);
           row2.push(z_list[i]);
@@ -194,15 +187,12 @@ class ExportPage extends React.Component{
   
         table.push(<tr>{row}</tr>);
         table2.push(row2);
-
       }
-      
-
     }
 
     let row3 = [];
     row3.push(<td>&nbsp;Total Score</td>);
-    for (var i in teamlist){
+    for (var i in teamlist) {
       var total_count = 0;
       for (var j in table2){
         total_count = total_count + parseFloat(table2[j][i]);

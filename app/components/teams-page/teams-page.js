@@ -43,9 +43,7 @@ class TeamPage extends React.Component{
     if (form.checkValidity() === false || this.state.teamName == "" || this.state.appName == "" || this.state.school == "" || this.state.appDescription == "") {
       event.preventDefault();
       event.stopPropagation();
-      console.log("invalid input");
     } else{
-      console.log("valid input");
       var data = {};
       var team = {
         teamName: this.state.teamName,
@@ -79,7 +77,6 @@ class TeamPage extends React.Component{
     copyData.splice(x,1);
     this.setState({teamData: copyData});
     this.removeTeam(teamName);  
-    console.log("after: ", this.props.teamData);
   }
   // Remove the selected team from firebase
   removeTeam(teamName){

@@ -176,46 +176,7 @@ class AssignPage extends React.Component{
       }
     }
   }
-  
-  addTeamToJudge(judgeName, e){
-    console.log("selected team: ", judgeName, e.target.value);
-    var teamName = e.target.value;
-    var judgeRef = this.db.collection(this.props.eventName).doc('judges');
-    for (let y=0; y<this.props.teamData.length; y++){
-      if (this.props.teamData[y].teamName == e.target.value){
-        var appName = this.props.teamData[y].appName;
-        var school = this.props.teamData[y].school;
-        var appDescription = this.props.teamData[y].appDescription;
-      }
-    }
-    this.setState({teamName: teamName});
-    this.setState({appName: appName});
-    this.setState({school: school});
-    var stringof = judgeName+".teams."+teamName;
-    var temp ={
-      teamName: teamName,
-      appName: appName,
-      school: school,
-      appDescription: appDescription
-    };
-    judgeRef.update({
-      [stringof]: temp
-    }).then(function() {
-      console.log("Document successfully updated!");
-    }).then(result=>{
-      this.displayLocalTeam();
-    });
-    var teamRef = this.db.collection(this.props.eventName).doc('teams');
-    var stringof2 = teamName+".scores."+judgeName;
-    var temp2 = {
-      judgeName: judgeName
-    }
-    teamRef.update({
-      [stringof2]: temp2
-    }).then(function() {
-      console.log("Document successfully updated!");
-    });
-  }
+
   displayLocalTeam(){
     var rows = this.state.rows;
     var row = [this.state.teamName, this.state.appName, this.state.school];
@@ -319,18 +280,21 @@ class AssignPage extends React.Component{
     this.setState({judgeteammap: judgeteamMap},()=>
       {
         console.log(this.state.teamjudgemap);
-        // this.autoAssignjSave();
+        this.autoAssignjSave();
       })
     //this.setState({schoolteammap: schoolteamMap})
     this.setState({teamjudgemap: teamjudgeMap},()=>
       {
         console.log(this.state.teamjudgemap);
-        // this.autoAssigntSave();
+        this.autoAssigntSave();
       })
   }
   // Auto assign algorithm
   algorithm(judge, team){
-    var n = Math.ceil(team.length/judge.length);
+    var n = Math.ceil(team.length / judge.length);
+    if ( n > judge.length) {
+      n = judge.length
+    }
     console.log("n: ", n);
     var x = 0;
     var output = [];
@@ -399,7 +363,7 @@ class AssignPage extends React.Component{
       judgeRef.update({
         [stringOf]: temp
       }).then(function (){
-        console.log("Judge successfully updated!llll");
+        console.log("Judge successfully updated!");
       });
     }    
   }
@@ -412,14 +376,14 @@ class AssignPage extends React.Component{
           if (this.props.judgeData[i].name == judges[j]){
             temp[this.props.judgeData[i].name]={
               judgeName: this.props.judgeData[i].name,
-              dscore1:null,
-              dscore2:null,
-              fscore1:null,
-              fscore2:null,
-              tscore1:null,
-              tscore2:null,
-              pscore1:null,
-              totalScore:null
+              dscore1:0,
+              dscore2:0,
+              fscore1:0,
+              fscore2:0,
+              tscore1:0,
+              tscore2:0,
+              pscore1:0,
+              totalScore:0
             }
           }
         }
@@ -442,7 +406,7 @@ class AssignPage extends React.Component{
         let removeteams = judgeRef.update({
           [stringof]: firebase.firestore.FieldValue.delete() 
         }).then(function() {
-          console.log("Document successfully updated!");
+          console.log("manual assign results(judges) successfully updated!");
         });
       } 
     }
@@ -460,7 +424,7 @@ class AssignPage extends React.Component{
             judgeRef.update({
               [stringof] : temp
             }).then(function (){
-              console.log("Document successfully updated!llll");
+              console.log("manual assign results(teams) successfully updated!llll");
             }).catch(function(error) {
               console.log("Error getting document:", error);
             });
@@ -475,7 +439,7 @@ class AssignPage extends React.Component{
         let removeteams = teamRef.update({
           [stringof]: firebase.firestore.FieldValue.delete() 
         }).then(function() {
-          console.log("Document successfully updated!");
+          console.log("team delete successfully updated!");
         });
       }  
     }
@@ -486,14 +450,14 @@ class AssignPage extends React.Component{
           if (this.state.addteamsjudge[team][j]  == this.props.judgeData[i].name){
             var temp = {
               judgeName: this.props.judgeData[i].name,
-              dscore1 : null,
-              dscore2 : null,
-              fscore1 : null,
-              fscore2 : null,
-              tscore1 : null,
-              tscore2 : null,
-              pscore1 : null,
-              totalScore : null,
+              dscore1 : 0,
+              dscore2 : 0,
+              fscore1 : 0,
+              fscore2 : 0,
+              tscore1 : 0,
+              tscore2 : 0,
+              pscore1 : 0,
+              totalScore : 0,
             }
             teamRef.update({
               [stringof] : temp

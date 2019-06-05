@@ -20,7 +20,6 @@ class TotalPage extends React.Component{
         totalScore: 0
     }
     this.displaybyTeamsJudge = this.displaybyTeamsJudge.bind(this);
-    console.log("total: ", this.props.teamData2);
   }
 
   onLogout(e){
