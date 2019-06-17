@@ -29,15 +29,7 @@ npm run start
 
 This web app is currently deployed using [Firebase Hosting](https://firebase.google.com/docs/hosting). Visit [here](https://dfs-judging-application.firebaseapp.com/).
 
-If any changes has been made, follow these steps to deploy the latest version:
-
-```
-npm run build
-```
-
-```
-firebase deploy
-```
+Follow the introduction [here](https://firebase.google.com/docs/hosting/quickstart) about deployment.
 
 
 

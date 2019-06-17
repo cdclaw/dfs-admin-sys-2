@@ -198,7 +198,7 @@ class JudgePage extends React.Component{
               <Col><p className="header black">Event: {this.props.eventName}</p></Col>
             </Row>
             <Row>
-              <Col><p className="header">Genererate Judge Account</p></Col>
+              <Col><p className="header">Generate Judge Account</p></Col>
             </Row>
             
             <Form className="jp-form"
